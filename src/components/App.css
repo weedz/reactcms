@@ -1,7 +1,25 @@
 .App {
 
 }
+.app-container {
+    width: 1140px;
+    min-height: 150px;
+    padding: 11px;
+    background-color: rgb(20,20,20);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7px;
+}
 
 .App-intro {
   font-size: large;
+}
+.clear {
+    clear: both;
+}
+.right {
+    float: right;
+}
+.left {
+    float: left;
 }

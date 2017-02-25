@@ -1,16 +1,66 @@
-ul {
+.Header ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
-ul li {
+.Header ul li {
     display: inline;
-    padding: 11px;
+}
+.Header ul a{
+    padding: 16px;
+    text-decoration: none;
+}
+.Header ul a:hover {
+    background-color: rgb(30,30,30);
 }
 
 .Header {
-    background-color: #222;
-    height: 80px;
-    padding: 20px;
+    background-color: rgb(20,20,20);
+    box-shadow: 0px 5px 20px -8px black;
+    width: 100%;
+    min-width: 1140px;
+    min-height: 50px;
     color: white;
+}
+.container {
+    width: 1140px;
+    margin: auto;
+}
+.eoa {
+    float: left;
+}
+.user-menu {
+    float: right;
+}
+.search-bar {
+    float: right;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin-right: 20px;
+}
+.search-bar select,
+.search-bar input[type="text"],
+.search-bar input[type="submit"] {
+    background-color: rgb(70,70,70);
+}
+.search-bar select {
+    border: none;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px 0 0 3px;
+}
+.search-bar input[type="text"] {
+    border: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 250px;
+}
+.search-bar input[type="submit"] {
+    border: none;
+    padding: 8px;
+    border-radius: 0 3px 3px 0;
 }

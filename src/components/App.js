@@ -3,15 +3,18 @@ import Header from './Header';
 import Footer from './Footer';
 import './App.css';
 
-export default class App extends React.Component {
+class App extends React.Component {
     render() {
         document.title = 'Home';
         return (
             <div className="App">
                 <Header />
-                {this.props.children}
+                <div className="app-container">
+                    {this.props.children}
+                </div>
                 <Footer/>
             </div>
         );
     }
 }
+module.exports = App;

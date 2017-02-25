@@ -1,11 +1,19 @@
 import React from 'react';
+import './Home.css';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     render() {
         return(
             <div className="Home">
-                <p>Hello?</p>
+                <div className="widgets right">
+                    <p>Widgets</p>
+                </div>
+                <div className="content">
+                    <p>Hello?</p>
+                </div>
+                <div className="clear" />
             </div>
         );
     }
 }
+module.exports = Home;

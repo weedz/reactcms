@@ -1,15 +1,14 @@
 const mysql = require('mysql');
 
 module.exports = function(app) {
-    // Uncomment to use mysql
-    /*const connection = mysql.createConnection({
+    const connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'reactjs'
+        database: 'reactcms'
     });
     connection.connect();
     app.set('_store', {
         mysql: connection
-    });*/
+    });
 };

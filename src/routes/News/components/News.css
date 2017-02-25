@@ -1,0 +1,12 @@
+.Stub {
+    padding: 9px;
+    background-color: rgb(50,50,50);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.Stub:first-child {
+    margin-top: 0;
+}
+.Stub:last-child {
+    margin-bottom: 0;
+}
