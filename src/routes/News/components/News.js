@@ -2,14 +2,23 @@ import React from 'react';
 import Stub from './Stub';
 import './News.css';
 
-class News extends React.Component {
-    constructor() {
+export default class News extends React.Component {
+    constructor(props) {
         super();
+        const page = props.page || props.params.page || 1;
         this.state = {
-            articles: []
+            articles: [],
+            numberOfArticles: 0,
         };
-        const _this = this;
-        fetch('/api/news/0', {
+        //console.log('Fetch news from server');
+        fetch('/api/news/count').then((res) =>
+            res.text()
+        ).then((count) => {
+            this.setState({
+                numberOfArticles: Number(count)
+            });
+        });
+        fetch(`/api/news/${page}`, {
             method: 'post'
         }).then((res) => {
             return res.json();
@@ -18,17 +27,18 @@ class News extends React.Component {
             json.forEach((i) => {
                 items[i.id] = <Stub key={i.id} article={i}/>;
             });
-            _this.setState({
+            this.setState({
                 articles: items
             });
         });
     }
+
     render() {
         document.title = 'News';
         return(
-            <ul className="News">
+            <div className="News">
                 {this.state.articles}
-            </ul>
+            </div>
         );
     }
 }

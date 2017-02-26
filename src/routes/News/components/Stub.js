@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-class Stub extends React.Component {
+export default class Stub extends React.Component {
     render() {
         return(
             <div className="Stub">
