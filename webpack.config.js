@@ -17,6 +17,7 @@ fs.readdirSync(path.resolve(__dirname,'node_modules'))
     .forEach(mod => { nodeModules[mod] = `commonjs ${mod}`; });
 const server = {
     name: 'server',
+    bail: true,
     target: 'node',
     devtool: false,
     node: {
@@ -47,6 +48,7 @@ const server = {
 };
 const client = {
     name: 'client',
+    bail: true,
     target: 'web',
     devtool: false,
     entry: [
@@ -80,7 +82,7 @@ const client = {
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: [require.resolve('babel-preset-react-app')],
+                    presets: ['es2015','react'],
                 }
             },
             {

@@ -45,7 +45,7 @@ const config = {
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: [require.resolve('babel-preset-react-app')],
+                    presets: ['es2015','react'],
                 }
             },
             {
@@ -64,4 +64,4 @@ const config = {
     ]
 };
 
-module.exports = config
+module.exports = config;

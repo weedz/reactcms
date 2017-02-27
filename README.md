@@ -6,4 +6,4 @@ Clone this repository into an empty folder. Run ``npm install`` to download node
 
 Run ``npm run build`` to build production. Run ``npm start`` to start express server.
 
-Start express server with ``npm start``, start development server with ``npm run start-dev``. 
+Start express server with ``npm start``, start development server with ``npm run dev``. 
