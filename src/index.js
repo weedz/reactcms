@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, browserHistory} from 'react-router';
+import { Router, browserHistory } from 'react-router';
 import './index.css';
 
 const rootRoute = {
@@ -18,7 +18,6 @@ const rootRoute = {
         },
         childRoutes: [
             require('./routes/News'),
-            require('./routes/Article'),
             require('./routes/Wiki'),
             {
                 path: '*',

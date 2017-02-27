@@ -1,12 +1,13 @@
 import React from 'react';
-class Article extends React.Component {
+
+export default class Article extends React.Component {
     render() {
-        console.log('Article');
         return(
             <div className="Article">
-                {this.props.children}
+                <h1>{this.props.article.title}</h1>
+                <h4 className="intro">{this.props.article.intro}</h4>
+                <p>{this.props.article.content}</p>
             </div>
         );
     }
 }
-module.exports = Article;

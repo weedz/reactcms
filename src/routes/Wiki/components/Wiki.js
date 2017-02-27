@@ -4,7 +4,7 @@ class Wiki extends React.Component {
     render() {
         document.title = 'Wiki';
         return(
-            <div className="Search">
+            <div className="component">
                 <p>Wiki</p>
             </div>
         );

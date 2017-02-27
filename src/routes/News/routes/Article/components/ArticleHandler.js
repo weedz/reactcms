@@ -1,17 +1,16 @@
 import React from 'react';
 import Article from './Article';
-import './Article.css';
 
-class ArticleHandler extends React.Component {     // Article handler
-    constructor(props) {
+class ArticleHandler extends React.Component {
+    constructor() {
         super();
-
         this.state = {
             article: null
         };
-        fetch(`/api/news/article/${props.params.articleId}`, {
-            method: 'post'
-        }).then((res) => {
+    }
+
+    componentWillMount() {
+        fetch(`/api/news/article/${this.props.params.id}`).then((res) => {
             return res.json();
         }).then((json) => {
             if (json.length == 1) {
@@ -25,6 +24,7 @@ class ArticleHandler extends React.Component {     // Article handler
             }
         });
     }
+
     render() {
         return(
             this.state.article

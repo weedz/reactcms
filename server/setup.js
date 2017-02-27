@@ -8,7 +8,5 @@ module.exports = function(app) {
         database: 'reactcms'
     });
     connection.connect();
-    app.set('_store', {
-        mysql: connection
-    });
+    app.set('mysql', connection);
 };

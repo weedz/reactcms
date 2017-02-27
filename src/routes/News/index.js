@@ -1,15 +1,16 @@
 module.exports = {
-    path: 'news(/:page)',
+    path: 'news',
     getComponent(nextState, cb) {
         require.ensure([], (require) => {
-            cb(null, require('./components/News'))
+            cb(null, require('./components/Handler'))
         })
     },
-    /*getChildRoutes(partialNextState, cb) {
+    getChildRoutes(partialNextState, cb) {
         require.ensure([], (require) => {
             cb(null, [
-                require('./routes/Article')
+                require('./routes/Article'),
+                require('./routes/Archive')
             ])
         })
-    }*/
+    }
 };
