@@ -34,7 +34,6 @@ export default class News extends React.Component {
     }
 
     render() {
-        document.title = 'News';
         return(
             <div className="News">
                 {this.state.articles}

@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const path = require('path');
 
 const APP_DIR = path.resolve(__dirname, '../src');
@@ -9,7 +8,7 @@ process.env.NODE_ENV = 'development';
 const config = {
     name: 'client',
     target: 'web',
-    devtool: 'source-map',
+    devtool: 'inline-sourcemap',
     context: __dirname,
     entry: [
         'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
@@ -37,7 +36,7 @@ const config = {
                 loader: 'url',
                 query: {
                     limit: 10000,
-                    name: 'static/media/[name].[hash:8].[ext]'
+                    name: 'static/media/[name].[ext]'
                 }
             },
             {
