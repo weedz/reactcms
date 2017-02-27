@@ -53,13 +53,15 @@ class Handler extends React.Component {
         }
         const currentPage = Number(this.props.params.page);
         const links = [];
-        if (this.props.params.page > 1) {
+        if (this.props.params.page > 1 && this.state.articles.length > 0) {
             links.push(<Link key="prev" onClick={this.prevPage.bind(this)} to={`/news/archive/${currentPage-1}`}>Previous</Link>)
         }
         if (this.state.numberOfArticles > this.props.params.page * 10) {
             links.push(<Link key="next" onClick={this.nextPage.bind(this)} to={`/news/archive/${currentPage+1}`}>Next</Link>)
         }
-        if (this.props.params.page === undefined) {
+        if (this.state.articles.length === 0) {
+            links.push(<Link key="news" to="/news">News</Link>);
+        } else if (this.props.params.page === undefined) {
             links.push(<Link key="archive" to="/news/archive/1">Archive</Link>);
         }
         const content = this.props.children ||
@@ -68,7 +70,7 @@ class Handler extends React.Component {
             <div className="component">
                 {content}
                 <div>
-                {links}
+                {this.props.children === null ? links: null}
                 </div>
             </div>
         );
