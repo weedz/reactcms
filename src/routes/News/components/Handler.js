@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 import News from './News';
 import Stub from './Stub';
-import { Link } from 'react-router';
+
+import VisibleNews from './VisibleNews';
 
 class Handler extends React.Component {
 
@@ -72,6 +75,7 @@ class Handler extends React.Component {
                 <div>
                 {this.props.children === null ? links: null}
                 </div>
+                <VisibleNews/>
             </div>
         );
     }
