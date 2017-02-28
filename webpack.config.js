@@ -32,7 +32,7 @@ const server = {
     module: {
         loaders: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 loader: 'babel-loader',
                 query: {
                     babelrc: false,
@@ -77,7 +77,7 @@ const client = {
                 }
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
