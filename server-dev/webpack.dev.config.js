@@ -8,7 +8,7 @@ process.env.NODE_ENV = 'development';
 const config = {
     name: 'client',
     target: 'web',
-    devtool: 'inline-sourcemap',
+    devtool: 'inline-source-map',
     context: __dirname,
     entry: [
         'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
@@ -56,6 +56,7 @@ const config = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development')

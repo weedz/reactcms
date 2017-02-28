@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import './AppContainer.css';
 
-class App extends React.Component {
+class AppContainer extends React.Component {
     render() {
         document.title = 'Home';
         return (
-            <div className="App">
+            <div>
                 <Header />
                 <div className="app-container">
                     {this.props.children}
@@ -16,4 +17,4 @@ class App extends React.Component {
         );
     }
 }
-module.exports = App;
+module.exports = AppContainer;
