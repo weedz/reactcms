@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import promise from 'redux-promise-middleware';
 
-import rootReducers from './reducers';
+import rootReducers from './reducers/index';
 
 /*const logger = (state) => (next) => (action) => {
     console.log(action);
@@ -15,7 +15,7 @@ export default function configureStore() {
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {
-            const nextRootReducers = require('./reducers/index');
+            const nextRootReducers = require('./reducers/index').default;
             store.replaceReducer(nextRootReducers);
         });
     }
