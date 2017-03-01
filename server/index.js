@@ -1,8 +1,12 @@
+process.env.NODE_ENV = 'production';
+const PORT = process.env.PORT || 9000;
+
 const express = require('express');
 const path = require('path');
-const http = require('http');
 const app = express();
-app.use('/', require('./app'));
+const router = require('./router');
+
+app.use('/', router);
 require('./setup')(app);
 
 app.use(express.static(path.join(__dirname, '..','build')));
@@ -11,7 +15,7 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
-const PORT = process.env.PORT || 9000;
-http.createServer(app).listen(PORT, () => {
+
+app.listen(PORT, () => {
     console.info('App listening on port ' + PORT);
 });

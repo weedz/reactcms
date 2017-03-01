@@ -1,7 +1,7 @@
 'use strict';
 
 process.env.NODE_ENV = 'development';
-const DEFAULT_PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 9000;
 
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -13,7 +13,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 app.use(function(req, res, next) {
-    require('../server/app')(req, res, next);
+    require('../server/router')(req, res, next);
 });
 require('../server/setup')(app);
 
@@ -36,8 +36,8 @@ function setupApp() {
 function startServer() {
     setupApp();
     server = http.createServer(app);
-    server.listen(DEFAULT_PORT, 'localhost', () => {
-        console.info('App listening on port ' + DEFAULT_PORT);
+    server.listen(PORT, 'localhost', () => {
+        console.info('App listening on localhost:' + PORT);
     });
 }
 startServer();
