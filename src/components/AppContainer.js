@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import './AppContainer.css';
+import './App.css';
 
 class AppContainer extends React.Component {
     render() {
