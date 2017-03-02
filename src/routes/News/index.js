@@ -1,6 +1,11 @@
 module.exports = {
     path: 'news',
-    getComponent(nextState, cb) {
+    component: require('./components/Handler'),
+    childRoutes:[
+        require('./routes/Article'),
+        require('./routes/Archive')
+    ]
+    /*getComponent(nextState, cb) {
         require.ensure([], (require) => {
             cb(null, require('./components/Handler'))
         })
@@ -12,5 +17,5 @@ module.exports = {
                 require('./routes/Archive')
             ])
         })
-    }
+    }*/
 };

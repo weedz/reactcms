@@ -3,6 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
 
 const BUILD_DIR = path.join(__dirname, '/build');
@@ -138,6 +139,10 @@ const client = {
                 comments: false,
                 screw_ie8: true
             }
+        }),
+        new CompressionPlugin({
+            test: /.\.css$|\.html$|\.jsx?$/,
+            minRatio: 0.8
         }),
     ]
 };

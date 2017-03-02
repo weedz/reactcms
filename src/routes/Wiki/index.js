@@ -1,8 +1,9 @@
 module.exports = {
     path: 'wiki',
-    getComponent(nextState, cb) {
+    component: require('./components/Wiki')
+    /*getComponent(nextState, cb) {
         require.ensure([], (require) => {
             cb(null, require('./components/Wiki'))
         })
-    }
+    }*/
 };
