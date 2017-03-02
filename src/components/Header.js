@@ -16,8 +16,8 @@ export default class Header extends Component {
                     </div>
                     <div className="user-menu">
                         <ul>
-                            <Link to="#"><li>Login</li></Link>
-                            <Link to="#"><li>Register</li></Link>
+                            <Link to="/user/login"><li>Login</li></Link>
+                            <Link to="/user/register"><li>Register</li></Link>
                         </ul>
                     </div>
                     <div className="search-bar">

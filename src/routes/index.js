@@ -5,6 +5,7 @@ const rootRoute = {
         childRoutes: [
             require('./News'),
             require('./Wiki'),
+            require('./User'),
             {
                 path: '*',
                 component: require('../components/NotFound')

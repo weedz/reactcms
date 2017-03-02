@@ -75,12 +75,12 @@ function mapStateToProps(state) {
     }
 }
 
-function matchDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchNews, fetchNewsCount
     }, dispatch);
 }
-const defaultExport = connect(mapStateToProps, matchDispatchToProps)(Handler);
+const defaultExport = connect(mapStateToProps, mapDispatchToProps)(Handler);
 
 export default defaultExport;
 module.exports = defaultExport;
