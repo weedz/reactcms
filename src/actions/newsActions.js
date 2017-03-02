@@ -1,12 +1,12 @@
-export function fetchNews() {
+export function fetchNews(page) {
     return {
         type: "FETCH_NEWS",
-        payload: fetch('/api/news/archive/1')
+        payload: fetch(`/api/news/archive/${page}`).then(res => (res.json()))
     };
 }
-export function toggleNews(id) {
+export function fetchNewsCount() {
     return {
-        type: "TOGGLE_NEWS",
-        payload: id
+        type: "FETCH_NEWS_COUNT",
+        payload: fetch('/api/news/count').then(res => (res.json()))
     }
 }

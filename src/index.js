@@ -4,19 +4,18 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 
-import App from './App';
 
-const render = (Component) => ReactDOM.render(
+const render = () => {
+    const App = require('./App').default;
+    ReactDOM.render(
     <Provider store={store()}>
-        <Component />
+        <App />
     </Provider>,
-    document.getElementById('root')
-);
-render(App);
+        document.getElementById('root')
+    )
+};
 
-/*ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-);*/
+if (module.hot) module.hot.accept('./App', () => render());
 
-if (module.hot) module.hot.accept('./App', () => render(App));
+
+render();

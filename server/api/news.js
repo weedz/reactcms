@@ -8,7 +8,9 @@ router.get('/count', function(req, res) {
         if (err) {
             console.error('Error: ' + err);
         } else {
-            res.json(rows[0].count);
+            res.json({
+                articles: rows[0].count
+            });
         }
     });
 });
@@ -38,7 +40,7 @@ router.get('/article/:id', function(req, res) {
         if (err) {
             console.error('Error: ' + err);
         } else {
-            res.json(rows);
+            res.json(rows[0]);
         }
     })
 });

@@ -1,34 +1,40 @@
 import React from 'react';
 import Article from './Article';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { fetchArticle } from '../../../../../actions/articleActions';
+
 class ArticleHandler extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            article: null
-        };
-    }
 
     componentWillMount() {
-        fetch(`/api/news/article/${this.props.params.id}`).then((res) => {
-            return res.json();
-        }).then((json) => {
-            if (json.length == 1) {
-                this.setState({
-                    article: <Article article={json[0]}/>
-                });
-            } else {
-                this.setState({
-                    article: <p>Article not found</p>
-                });
-            }
-        });
+        if (this.props.article && this.props.params.articleId == this.props.article.id) {
+
+        } else {
+            this.props.fetchArticle(this.props.params.articleId);
+        }
     }
 
     render() {
         return(
-            this.state.article
+            <Article article={this.props.article}/>
         );
     }
 }
-module.exports = ArticleHandler;
+
+function mapStateToProps(state) {
+    return {
+        article: state.article.article,
+        lastFetch: state.article.lastFetch
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchArticle
+    }, dispatch);
+}
+const defaultExport = connect(mapStateToProps, matchDispatchToProps)(ArticleHandler);
+
+export default defaultExport;
+module.exports = defaultExport;

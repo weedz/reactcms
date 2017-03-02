@@ -1,22 +1,32 @@
 export default function reducer(state={
-    numberOfArticles: 0
+    articles: [],
+    numberOfArticles: 0,
+    fetching: false,
+    lastFetch: 0
 }, action) {
     switch (action.type) {
-        case "TOGGLE_NEWS": {
-            console.log(action);
-            return action.payload;
-        }
-        case "FETCH_NEWS" : {
-            break;
+        case "FETCH_NEWS_PENDING" : {
+            return {...state,
+                fetching: true
+            }
         }
         case "FETCH_NEWS_REJECTED": {
-            break;
+            return {...state,
+                fetching: false,
+            }
         }
         case "FETCH_NEWS_FULFILLED": {
-            break;
+            return {...state,
+                fetching: false,
+                lastFetch: Date.now(),
+                articles: action.payload
+            }
         }
-        default:
-            return state;
+        case "FETCH_NEWS_COUNT_FULFILLED": {
+            return {...state,
+                numberOfArticles: action.payload.articles
+            }
+        }
     }
-
+    return state;
 }

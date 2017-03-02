@@ -6,12 +6,24 @@ const rootRoute = {
                 component: require('../components/Home')
             })
         },
-        getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-                cb(null, require('../components/AppContainer'))
+        component: require('../components/AppContainer'),
+        getChildRoutes(partialNextState, cb) {
+            require.ensure([], require => {
+                cb(null, [
+                    require('./News'),
+                    require('./Wiki'),
+                    {
+                        path: '*',
+                        getComponent(nextState, cb) {
+                            require.ensure([], (require) => {
+                                cb(null, require('../components/NotFound'))
+                            })
+                        }
+                    }
+                ])
             })
-        },
-        childRoutes: [
+        }
+        /*childRoutes: [
             require('./News'),
             require('./Wiki'),
             {
@@ -22,7 +34,7 @@ const rootRoute = {
                     })
                 }
             }
-        ]
+        ]*/
     } ]
 };
 export default rootRoute;
