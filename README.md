@@ -22,4 +22,4 @@ bin\mysqld --standalone --console
 ```
 Default user is ``root`` without password.
 
-When mysql server is up and running you can configure ``server/setup.js`` to match your mysql connection.
+When mysql server is up and running you can configure ``config/default.js`` to match your mysql connection.

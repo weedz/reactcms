@@ -1,14 +1,20 @@
 const mysql = require('mysql');
+const config = require('config');
 
 module.exports = function(app) {
-    const connection = mysql.createConnection({
-		//socketPath: "/var/run/mysqld/mysqld.sock",
-        host: 'localhost',
-		port: '3306',
-        user: 'root',
-        password: '',
-        database: 'reactcms'
-    });
+    const dbConfig = config.get('dbConfig');
+    let params = {
+        user: dbConfig.user,
+        password: dbConfig.password,
+        database: dbConfig.dbName
+    };
+    if (dbConfig.has('socketPath')) {
+        params.socketPath = dbConfig.socketPath;
+    } else {
+        params.host = dbConfig.host;
+        params.port = dbConfig.port;
+    }
+    const connection = mysql.createConnection(params);
     connection.connect();
     app.set('mysql', connection);
 };
