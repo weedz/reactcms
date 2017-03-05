@@ -1,6 +1,5 @@
 'use strict';
 
-process.env.NODE_ENV = 'development';
 const PORT = process.env.PORT || 9000;
 
 const webpack = require('webpack');

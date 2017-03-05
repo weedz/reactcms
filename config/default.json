@@ -1,6 +1,6 @@
 {
   "dbConfig": {
-    "type": "mysql",
+    "dialect": "mysql",
     "host": "localhost",
     "user": "root",
     "password": "",
