@@ -43,17 +43,7 @@ module.exports = function(app) {
             field: 'author_id'
         }
     });
-    News.sync({
-        force: process.env.NODE_ENV === 'development'
-    }).then(() => {
-        News.create({
-            title: 'Article 1',
-            intro: 'Small headline for article 1',
-            content: 'Article body.',
-            authorName: 'Author',
-            authorId: 1
-        });
-    });
+    News.sync();
 
     app.set('_db', {
         News
