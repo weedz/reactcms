@@ -3,8 +3,6 @@ const path = require('path');
 
 const APP_DIR = path.resolve(__dirname, '../src');
 
-process.env.NODE_ENV = 'development';
-
 const config = {
     name: 'client',
     target: 'web',
