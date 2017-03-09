@@ -37,9 +37,9 @@ class Handler extends React.Component {
         if (this.props.params.page === undefined && this.props.params.articleId === undefined && this.state.page != 1) {
             this.state.page = 1;
             this.updateArchive();
-            // Fetch news every 10 minute
         } else if (this.props.params.articleId === undefined && Date.now() - this.props.lastFetch > 600000) {
-            this.updateArchive();
+            // Fetch news every 10 minute
+            //this.updateArchive();
         }
         const currentPage = Number(this.props.params.page);
         const links = [];

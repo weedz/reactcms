@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         id: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             field: 'id',
@@ -23,10 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         content: {
             type: DataTypes.STRING,
             field: 'content'
-        },
-        timestamp: {
-            type: DataTypes.INTEGER,
-            field: 'timestamp'
         },
         authorName: {
             type: DataTypes.STRING,
