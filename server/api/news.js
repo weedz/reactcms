@@ -3,9 +3,9 @@ const router = express.Router();
 const { News } = require('../models');
 
 router.get('/count', function(req, res) {
-    News.findAndCountAll().then(result => {
+    News.count().then(count => {
        res.json({
-           articles: result.count
+           articles: count
        })
     });
 });
@@ -25,7 +25,7 @@ router.get('/archive/:page', function(req, res) {
 });
 
 router.get('/article/:id', function(req, res) {
-    News.findOne({
+    News.scope('article').findOne({
         where: {
             id: req.params.id
         }

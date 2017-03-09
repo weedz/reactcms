@@ -1,8 +1,8 @@
 const Sequelize =  require('sequelize');
 const config = require('config');
 
-//const faker = require('faker');
-//const _ = require('lodash');
+const faker = require('faker');
+const _ = require('lodash');
 
 const dbConfig = config.get('dbConfig');
 
@@ -19,19 +19,27 @@ if (dbConfig.has('socketPath')) {
 }
 const sequelize = new Sequelize(dbConfig.dbName, dbConfig.user, dbConfig.password, params);
 
-const News = require('./News')(sequelize, Sequelize.DataTypes);
+const Users = require('./Users')(sequelize, Sequelize.DataTypes);
+const News = require('./News')(sequelize, Sequelize.DataTypes, Users);
+News.belongsTo(Users, {as: 'author'});
 
-/*News.sync({
+sequelize.sync({
     force: true
 }).then(function() {
+    Users.create({
+        username: 'WeeDz'
+    });
     _.times(15, function() {
         News.create({
             title: faker.lorem.sentence(),
             intro: faker.lorem.paragraph(),
             content: faker.lorem.paragraphs()
+        }).then(article => {
+            article.setAuthor(1)
         });
     });
-});*/
+});
 
-exports.News = News;
 exports.sequelize = sequelize;
+exports.News = News;
+exports.Users = Users;

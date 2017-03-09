@@ -1,11 +1,5 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes, Users) {
     return sequelize.define('news', {
-        type: {
-            type: new DataTypes.VIRTUAL(DataTypes.STRING),
-            get() {
-                return 'articleType'
-            }
-        },
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -24,13 +18,30 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             field: 'content'
         },
-        authorName: {
-            type: DataTypes.STRING,
-            field: 'author_name'
-        },
-        authorId: {
-            type: DataTypes.INTEGER,
-            field: 'author_id'
+    }, {
+        scopes: {
+            archive: {
+                attributes: ['id','title','intro','authorId','createdAt'],
+                include: [{
+                    model: Users,
+                    as: 'author',
+                    attributes: ['username']
+                }]
+            },
+            article: {
+                include: [{
+                    model: Users,
+                    as: 'author',
+                    attributes: ['username']
+                }]
+            },
+            page: function(page) {
+                return {
+                    raw: true,
+                    offset: (page - 1) * 10,
+                    limit: 10
+                }
+            }
         }
     });
 };

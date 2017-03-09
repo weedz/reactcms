@@ -1,6 +1,5 @@
 export default function reducer(state={
     articles: [],
-    message: {},
     numberOfArticles: 0,
     fetching: false,
     lastFetch: 0

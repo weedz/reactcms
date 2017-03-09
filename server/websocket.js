@@ -1,5 +1,5 @@
 const socket = require('socket.io');
-const { News } = require('./models');
+const { News, Users } = require('./models');
 
 const io = socket();
 
@@ -15,11 +15,9 @@ module.exports = function(server) {
                         payload: 'Invalid page'
                     });
                 } else {
-                    News.findAll({
-                        raw: true,
-                        offset: (page-1)*10,
-                        limit: 10
-                    }).then(res => {
+                    News.scope('archive',{
+                        method: ['page',page]
+                    }).findAll().then(res => {
                         socket.emit('action', {
                             type: 'FETCH_NEWS_FULFILLED',
                             payload: res
