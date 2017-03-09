@@ -67,20 +67,15 @@ class Handler extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        articles: state.news.articles,
-        numberOfArticles: state.news.numberOfArticles,
-        lastFetch: state.news.lastFetch
-    }
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({
+const defaultExport = connect((state) => ({
+    articles: state.news.articles,
+    numberOfArticles: state.news.numberOfArticles,
+    lastFetch: state.news.lastFetch
+}), (dispatch) => (
+    bindActionCreators({
         fetchNews, fetchNewsCount
-    }, dispatch);
-}
-const defaultExport = connect(mapStateToProps, matchDispatchToProps)(Handler);
+    }, dispatch)
+))(Handler);
 
 export default defaultExport;
 module.exports = defaultExport;

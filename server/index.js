@@ -7,7 +7,6 @@ const app = express();
 const router = require('./router');
 
 app.use('/', router);
-require('./setup')(app);
 
 //app.use(express.static(path.join(__dirname, '..','build')));
 app.use("/", expressStaticGzip(path.join(__dirname, '..','build')));

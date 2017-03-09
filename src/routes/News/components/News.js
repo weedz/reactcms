@@ -3,12 +3,13 @@ import Stub from './Stub';
 import './News.css';
 
 export default class News extends React.Component {
-        render() {
+    render() {
+        const articles = this.props.articles.map(article => (
+            <Stub key={article.id} article={article}/>
+        ));
         return(
             <div className="News">
-                {this.props.articles.map(article => (
-                    <Stub key={article.id} article={article}/>
-                ))}
+                {articles}
                 {this.props.children}
             </div>
         );

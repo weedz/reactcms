@@ -16,25 +16,28 @@ class ArticleHandler extends React.Component {
     }
 
     render() {
+        let content;
+        if (this.props.article) {
+            content = <Article article={this.props.article}/>
+        } else {
+            content = <p>Article not found.</p>
+        }
         return(
-            <Article article={this.props.article}/>
+            <div>
+            {content}
+            </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        article: state.article.article,
-        lastFetch: state.article.lastFetch
-    }
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({
+const defaultExport = connect((state) => ({
+    article: state.article.article,
+    lastFetch: state.article.lastFetch
+}), (dispatch) => (
+    bindActionCreators({
         fetchArticle
-    }, dispatch);
-}
-const defaultExport = connect(mapStateToProps, matchDispatchToProps)(ArticleHandler);
+    }, dispatch)
+))(ArticleHandler);
 
 export default defaultExport;
 module.exports = defaultExport;

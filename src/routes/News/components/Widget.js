@@ -20,19 +20,14 @@ class Widget extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        articles: state.news.articles,
-        lastFetch: state.news.lastFetch
-    }
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({
+const defaultExport = connect((state) => ({
+    articles: state.news.articles,
+    lastFetch: state.news.lastFetch
+}), (dispatch) => (
+    bindActionCreators({
         fetchNews
-    }, dispatch);
-}
-const defaultExport = connect(mapStateToProps, matchDispatchToProps)(Widget);
+    }, dispatch)
+))(Widget);
 
 export default defaultExport;
 module.exports = defaultExport;

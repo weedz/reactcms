@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
+const { News } = require('../models');
 
 router.get('/count', function(req, res) {
-    const db = req.app.get('_db');
-    db.News.findAndCountAll().then(result => {
+    News.findAndCountAll().then(result => {
        res.json({
            articles: result.count
        })
@@ -17,8 +16,7 @@ router.get('/archive/:page', function(req, res) {
         res.json([]);
         return;
     }
-    const db = req.app.get('_db');
-    db.News.findAll({
+    News.findAll({
         offset: (page-1)*10,
         limit: 10
     }).then(result => {
@@ -27,8 +25,7 @@ router.get('/archive/:page', function(req, res) {
 });
 
 router.get('/article/:id', function(req, res) {
-    const db = req.app.get('_db');
-    db.News.findOne({
+    News.findOne({
         where: {
             id: req.params.id
         }
