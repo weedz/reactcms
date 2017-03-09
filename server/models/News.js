@@ -37,7 +37,6 @@ module.exports = function(sequelize, DataTypes, Users) {
             },
             page: function(page) {
                 return {
-                    raw: true,
                     offset: (page - 1) * 10,
                     limit: 10
                 }

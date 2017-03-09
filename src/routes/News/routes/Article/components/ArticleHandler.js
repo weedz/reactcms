@@ -17,7 +17,9 @@ class ArticleHandler extends React.Component {
 
     render() {
         let content;
-        if (this.props.article) {
+        if (this.props.fetching) {
+            content = <p>Loading article...</p>
+        } else if (Object.keys(this.props.article).length > 0) {
             content = <Article article={this.props.article}/>
         } else {
             content = <p>Article not found.</p>
@@ -32,7 +34,8 @@ class ArticleHandler extends React.Component {
 
 const defaultExport = connect((state) => ({
     article: state.article.article,
-    lastFetch: state.article.lastFetch
+    lastFetch: state.article.lastFetch,
+    fetching: state.article.fetching
 }), (dispatch) => (
     bindActionCreators({
         fetchArticle
