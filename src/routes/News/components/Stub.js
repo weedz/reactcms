@@ -6,7 +6,8 @@ export default class Stub extends React.Component {
         return(
             <div className="Stub">
                 <h2><Link to={'/news/article/' +this.props.article.id}>{this.props.article.title}</Link></h2>
-                <p>{this.props.article.content.substr(0,100)}</p>
+                <small>Author: {this.props.article['author.username']} - Published: <time dateTime={this.props.article.createdAt}>{new Date(this.props.article.createdAt).toLocaleString('en-GB')}</time></small>
+                <p>{this.props.article.intro}</p>
             </div>
         );
     }

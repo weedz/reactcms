@@ -1,21 +1,23 @@
 'use strict';
 
-process.env.NODE_ENV = 'development';
 const PORT = process.env.PORT || 9000;
 
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const path = require('path');
-const config = require('./webpack.dev.config.js');
-const compiler = webpack(config);
 const http = require('http');
 const express = require('express');
+
+const config = require('./webpack.dev.config.js');
+const compiler = webpack(config);
+const socket = require('../server/websocket');
+
 const app = express();
+
 app.use(function(req, res, next) {
     require('../server/router')(req, res, next);
 });
-require('../server/setup')(app);
 
 let server;
 
@@ -39,6 +41,7 @@ function startServer() {
     server.listen(PORT, 'localhost', () => {
         console.info('App listening on localhost:' + PORT);
     });
+    socket(server);
 }
 startServer();
 

@@ -17,7 +17,7 @@ export default function reducer(state={
         }
         case "FETCH_ARTICLE_FULFILLED": {
             return {...state,
-                fethcing: false,
+                fetching: false,
                 article: action.payload
             }
         }

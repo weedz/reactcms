@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { fetchNews, fetchNewsCount } from '../../../actions/newsActions';
 
 import News from './News';
-
+/*
+TODO: client side cache to prevent refetch of already fetched data
+ */
 class Handler extends React.Component {
 
     constructor(props) {
@@ -16,7 +18,17 @@ class Handler extends React.Component {
     }
     componentWillMount() {
         this.props.fetchNewsCount();
-        if (this.props.params.articleId === undefined) {
+        this.updateArchive();
+    }
+    componentDidUpdate() {
+        const currentPage = Number(this.props.params.page);
+        if (isNaN(currentPage) && this.props.children) {
+
+        } else if (isNaN(currentPage) && this.state.page != 1) {
+            this.state.page = 1;
+            this.updateArchive();
+        } else if (!isNaN(currentPage) && this.state.page != currentPage) {
+            this.state.page = currentPage;
             this.updateArchive();
         }
     }
@@ -24,30 +36,15 @@ class Handler extends React.Component {
     updateArchive() {
         this.props.fetchNews(this.state.page);
     }
-    nextPage() {
-        this.state.page += 1;
-        this.updateArchive();
-    }
-    prevPage() {
-        this.state.page -= 1;
-        this.updateArchive();
-    }
 
     render() {
-        if (this.props.params.page === undefined && this.props.params.articleId === undefined && this.state.page != 1) {
-            this.state.page = 1;
-            this.updateArchive();
-            // Fetch news every 10 minute
-        } else if (this.props.params.articleId === undefined && Date.now() - this.props.lastFetch > 600000) {
-            this.updateArchive();
-        }
-        const currentPage = Number(this.props.params.page);
+        const currentPage = Number(this.state.page);
         const links = [];
         if (this.props.params.page > 1 && this.props.articles.length > 0) {
-            links.push(<Link key="prev" onClick={this.prevPage.bind(this)} to={`/news/archive/${currentPage-1}`}>Previous</Link>)
+            links.push(<Link key="prev" to={`/news/archive/${currentPage-1}`}>Previous</Link>)
         }
         if (this.props.numberOfArticles > this.props.params.page * 10) {
-            links.push(<Link key="next" onClick={this.nextPage.bind(this)} to={`/news/archive/${currentPage+1}`}>Next</Link>)
+            links.push(<Link key="next" to={`/news/archive/${currentPage+1}`}>Next</Link>)
         }
         if (this.props.articles.length === 0) {
             links.push(<Link key="news" to="/news">News</Link>);
@@ -67,20 +64,15 @@ class Handler extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        articles: state.news.articles,
-        numberOfArticles: state.news.numberOfArticles,
-        lastFetch: state.news.lastFetch
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
+const defaultExport = connect((state) => ({
+    articles: state.news.articles,
+    numberOfArticles: state.news.numberOfArticles,
+    lastFetch: state.news.lastFetch
+}), (dispatch) => (
+    bindActionCreators({
         fetchNews, fetchNewsCount
-    }, dispatch);
-}
-const defaultExport = connect(mapStateToProps, mapDispatchToProps)(Handler);
+    }, dispatch)
+))(Handler);
 
 export default defaultExport;
 module.exports = defaultExport;
