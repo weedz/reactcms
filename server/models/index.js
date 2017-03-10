@@ -8,14 +8,14 @@ const dbConfig = config.get('dbConfig');
 
 const sequelize = new Sequelize(dbConfig.dbName, dbConfig.user, dbConfig.password, dbConfig.params);
 
-const Users = require('./Users')(sequelize, Sequelize.DataTypes);
-const News = require('./News')(sequelize, Sequelize.DataTypes, Users);
-News.belongsTo(Users, {as: 'author'});
+const User = require('./Users')(sequelize, Sequelize.DataTypes);
+const News = require('./News')(sequelize, Sequelize.DataTypes, User);
+News.belongsTo(User, {as: 'author'});
 
 sequelize.sync({
     force: true
 }).then(function() {
-    Users.create({
+    User.create({
         username: 'WeeDz',
         password: 'password'
     }).then(user => {
@@ -35,4 +35,4 @@ sequelize.sync({
 
 exports.sequelize = sequelize;
 exports.News = News;
-exports.Users = Users;
+exports.User = User;

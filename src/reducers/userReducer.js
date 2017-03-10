@@ -1,5 +1,5 @@
 export default function reducer(state={
-    user: {},
+    user: false,
     fetching: false,
     fetched: false,
     error: null
@@ -17,7 +17,7 @@ export default function reducer(state={
                 user: action.payload
             }
         }
-        case "ADD_USER_PENDIGN": {
+        case "ADD_USER_PENDING": {
             return {...state,
                 fetching: true,
             }
