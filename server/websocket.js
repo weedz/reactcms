@@ -20,7 +20,7 @@ module.exports = function(server) {
                     }).findAll().then(res => {
                         socket.emit('action', {
                             type: 'FETCH_NEWS_FULFILLED',
-                            payload: res
+                            payload: res.map(article => article.get())
                         });
                     });
                 }

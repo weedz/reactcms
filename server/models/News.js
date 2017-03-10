@@ -7,15 +7,15 @@ module.exports = function(sequelize, DataTypes, Users) {
             field: 'id',
         },
         title: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('tiny'),
             field: 'title'
         },
         intro: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('medium'),
             field: 'intro'
         },
         content: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             field: 'content'
         },
     }, {
@@ -37,7 +37,6 @@ module.exports = function(sequelize, DataTypes, Users) {
             },
             page: function(page) {
                 return {
-                    raw: true,
                     offset: (page - 1) * 10,
                     limit: 10
                 }

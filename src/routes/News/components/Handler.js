@@ -67,7 +67,8 @@ class Handler extends React.Component {
 const defaultExport = connect((state) => ({
     articles: state.news.articles,
     numberOfArticles: state.news.numberOfArticles,
-    lastFetch: state.news.lastFetch
+    lastFetch: state.news.lastFetch,
+    fetching: state.news.fetching,
 }), (dispatch) => (
     bindActionCreators({
         fetchNews, fetchNewsCount

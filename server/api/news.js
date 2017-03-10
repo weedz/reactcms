@@ -16,20 +16,19 @@ router.get('/archive/:page', function(req, res) {
         res.json([]);
         return;
     }
-    News.findAll({
+    News.findAndCountAll({
         offset: (page-1)*10,
         limit: 10
     }).then(result => {
-        res.json(result);
+        res.json({
+            articles: result.rows,
+            count: result.count
+        });
     });
 });
 
 router.get('/article/:id', function(req, res) {
-    News.scope('article').findOne({
-        where: {
-            id: req.params.id
-        }
-    }).then(result => {
+    News.scope('article').findById(req.params.id).then(result => {
         res.json(result);
     });
 });

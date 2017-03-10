@@ -5,7 +5,7 @@ export default function reducer(state={
     lastFetch: 0
 }, action) {
     switch (action.type) {
-        case "FETCH_NEWS_PENDING" : {
+        case "socket/FETCH_NEWS" : {
             return {...state,
                 fetching: true
             }
