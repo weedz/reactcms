@@ -8,6 +8,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const path = require('path');
 const http = require('http');
 const express = require('express');
+const session = require('express-session');
 
 const config = require('./webpack.dev.config.js');
 const compiler = webpack(config);
