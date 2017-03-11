@@ -45,7 +45,8 @@
     "request": "^2.81.0",
     "sequelize": "^3.30.2",
     "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3"
+    "socket.io-client": "^1.7.3",
+    "sqlite": "^2.3.0"
   },
   "scripts": {
     "dev": "node server-dev/index.js",

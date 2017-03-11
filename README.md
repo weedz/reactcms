@@ -8,18 +8,5 @@ Run ``npm run build`` to build production. Run ``npm start`` to start express se
 
 Start express server with ``npm start``, start development server with ``npm run dev``. 
 
-###MySQL server setup
-Recommends [MariaDB](https://downloads.mariadb.org/). Download and extract the zip file. Server can be started with this script: 
-
-#####Windows:
-```
-@echo off
-bin\mysqld --standalone --console
-```
-#####Linux
-```
-./bin/mysqld --standalone --console
-```
-Default user is ``root`` without password.
-
-When mysql server is up and running you can configure ``config/default.js`` to match your mysql connection.
+### Database setup
+SQLite by default. Database config is located in config/\[env\].json under "dbConfig". See [Sequelize](http://docs.sequelizejs.com/en/v3/) for config setup.
