@@ -16,7 +16,7 @@ sequelize.sync({
     force: true
 }).then(function() {
     User.create({
-        username: 'WeeDz',
+        username: 'weedz',
         password: 'password'
     }).then(user => {
         _.times(15, function() {
@@ -27,9 +27,6 @@ sequelize.sync({
                 authorId: user.id
             });
         });
-        /*Users.findById(1).then(user => {
-            console.log(user.authenticate('password'));
-        });*/
     });
 });
 

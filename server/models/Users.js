@@ -33,11 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         instanceMethods: {
             authenticate: function(val) {
-                if (bcrypt.compareSync(val, this.passwordHash)) {
-                    return this;
-                } else {
-                    return false;
-                }
+                return bcrypt.compareSync(val, this.passwordHash)
             }
         }
     })

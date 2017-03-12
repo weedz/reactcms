@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const { User } = require('../models');
 
@@ -7,19 +8,24 @@ router.use(bodyParser.json());
 
 router.post('/', function(req, res) {
     User.findOne({
-        where: {
-            username: req.body.username,
-        }
-    }).then(result => {
-        if (!result) {
-            return res.status(401).send(false);
-        }
-        const user = result.authenticate(req.body.password);
-        if (!user) {
-            return res.status(401).send(false);
-        } else {
-            req.session.user = Object.assign(user);
-            return res.json(user);
+        where: { username: req.body.username }
+    }).then(user => {
+        if (user) {
+            if (user.authenticate(req.body.password)) {
+                const token = jwt.sign({
+                    id: user.get('id'),
+                    username: user.get('username')
+                }, 'secret');
+                return res.json({token});
+            } else {
+                return res.status(401).json({
+                    errors: {form: 'Invalid credentials'}
+                });
+            }
+        } else  {
+            return res.status(401).json({
+                errors: {form: 'Invalid credentials'}
+            });
         }
     });
 });
@@ -51,15 +57,7 @@ router.get('/testcheck', (req, res) => {
 
 router.get('/check', function(req,res) {
     console.log(req.session);
-    if (req.session.user) {
-        return res.json({
-            auth: true
-        })
-    } else {
-        return res.json({
-            auth:false
-        })
-    }
+    res.send(false);
 });
 
 module.exports = router;

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
+
+import { connect } from 'react-redux';
+
 import './Header.css';
 
-export default class Header extends Component {
+class Header extends Component {
     render() {
         return (
             <nav className="Header">
@@ -36,3 +39,9 @@ export default class Header extends Component {
         );
     }
 }
+
+const defaultExport = connect(state => ({
+    user: state.user
+}))(Header);
+
+export default defaultExport;

@@ -16,12 +16,11 @@ export default function reducer(state={
                 error: true,
             }
         }
-        case "AUTHORIZE_USER_FULFILLED": {
-            const user = action.payload.error || action.payload;
+        case "SET_CURRENT_USER": {
             return {...state,
                 fetching: false,
                 fetched: true,
-                user: user,
+                user: action.payload,
             }
         }
         case "ADD_USER_PENDING": {
@@ -36,13 +35,6 @@ export default function reducer(state={
                 user: action.payload
             }
         }
-        // handle all rejected/not defined actions
-        default: {
-            return {...state,
-                fetching: false,
-                fetched: false,
-                error: action.payload
-            }
-        }
     }
+    return state;
 }
