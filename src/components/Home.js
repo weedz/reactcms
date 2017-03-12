@@ -11,14 +11,15 @@ class Home extends React.Component {
     }
     checkAuthorized() {
         fetch('/api/auth/check', {
-            credentials: 'same-origin',
-        }).then(res => {
-            res.json();
-        }).then(json => {
-            console.log(json);
+            headers: {
+                'Authorization': `bearer ${localStorage.getItem('jwtToken')}`,
+            }
+        }).then(res =>
+            res.json()
+        ).then(json => {
             this.setState({
-                authorized: 'Authorized'
-            })
+                authorized: json.errors ? 'Not authorized' : 'Authorized'
+            });
         });
     }
     render() {

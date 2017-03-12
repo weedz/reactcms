@@ -1,4 +1,3 @@
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 export function setCurrentUser(user) {
@@ -10,10 +9,21 @@ export function setCurrentUser(user) {
 
 export function authorizeUser(user) {
     return dispatch => {
-        return axios.post('/api/auth', user).then(res => {
-            const token = res.data.token;
-            localStorage.setItem('jwtToken',token);
-            dispatch(setCurrentUser(jwtDecode(token)));
+        return fetch('/api/auth', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }).then(res =>
+            res.json()
+        ).then(json => {
+            if (json.errors) {
+                return Promise.reject(json.errors);
+            } else {
+                localStorage.setItem('jwtToken',json.token);
+                dispatch(setCurrentUser(jwtDecode(json.token)));
+            }
         })
     }
 }

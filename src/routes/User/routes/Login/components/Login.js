@@ -20,13 +20,13 @@ class Login extends React.Component {
         this.props.authorizeUser({
             username: e.target['username'].value,
             password: e.target['password'].value,
-        }).then(
-            res => {},
-            err => this.setState({
-                errors:err.response.data.errors,
-                isLoading: false,
+        }).catch(err => {
+            // Not authorized
+            this.setState({
+                errors: err,
+                isLoading: false
             })
-        );
+        });
     }
     render() {
         let loggedIn = this.props.user ? <p>You are logged in.</p> : '';
@@ -43,7 +43,7 @@ class Login extends React.Component {
                     <input type="password" name="password" id="login-password" />
                     <label htmlFor="login-remember">Remember me:</label>
                     <input type="checkbox" name="remember" id="login-remember" />
-                    <input type="submit" value="Login" disabled={isLoading}/>
+                    <input type="submit" value="Login" disabled={isLoading || this.props.user}/>
                 </form>
                 {loggedIn}
             </div>

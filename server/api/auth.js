@@ -15,7 +15,7 @@ router.post('/', function(req, res) {
                 const token = jwt.sign({
                     id: user.get('id'),
                     username: user.get('username')
-                }, 'secret');
+                }, 'secretkey');
                 return res.json({token});
             } else {
                 return res.status(401).json({
@@ -30,34 +30,24 @@ router.post('/', function(req, res) {
     });
 });
 
-router.post('/test', (req, res) => {
-    req.session.auth = {
-        auth: 'Test'
-    };
-    res.send('Authorized');
-});
-router.get('/test', (req, res) => {
-    req.session.auth = {
-        auth: 'Test'
-    };
-    res.json({
-        message:'Authorized'
-    });
-});
-router.get('/testcheck', (req, res) => {
-    if (req.session.auth) {
-        return res.json(req.session.auth)
-    } else {
-        res.status(401);
-        return res.json({
-            auth: false
-        });
-    }
-});
-
 router.get('/check', function(req,res) {
-    console.log(req.session);
-    res.send(false);
+    const auth = req.headers.authorization;
+    if (auth) {
+        const token = auth.split(' ')[1];
+        if (token) {
+            try {
+                const decoded = jwt.verify(token, 'secretkey');
+                return res.json(decoded);
+            } catch (err) {
+                return res.status(401).json({
+                    errors: 'Not authorized'
+                })
+            }
+        }
+    }
+    return res.status(401).json({
+        errors: 'Not authorized'
+    })
 });
 
 module.exports = router;
