@@ -19,7 +19,7 @@ Install ``nodemon`` as global then run
 ```
 nodemon --watch server server-dev/index.js
 ```
-or ``npm run dev`` to start http server and listen for changes in server directory.
+or ``npm run dev-server`` to start http server and listen for changes in server directory.
 
 ### Database setup
 SQLite by default. Database config is located in config/\[env\].json under "dbConfig". See [Sequelize](http://docs.sequelizejs.com/en/v3/) for config setup.
