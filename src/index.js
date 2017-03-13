@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 
+// Authorize user
 
 const render = () => {
     const App = require('./App').default;
@@ -16,6 +17,5 @@ const render = () => {
 };
 
 if (module.hot) module.hot.accept('./App', () => render());
-
 
 render();

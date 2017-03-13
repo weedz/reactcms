@@ -1,6 +1,6 @@
 {
-  "name": "react_app",
-  "version": "0.1.0",
+  "name": "reactcms",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -17,7 +17,6 @@
     "proxy-middleware": "^0.15.0",
     "react-dev-utils": "^0.5.1",
     "style-loader": "^0.13.2",
-    "watch": "^1.0.2",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"
@@ -26,11 +25,13 @@
     "babel-preset-stage-0": "^6.22.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.16.1",
+    "client-sessions": "^0.7.0",
     "config": "^1.25.1",
-    "corser": "^2.0.1",
     "express": "^4.14.1",
+    "express-session": "^1.15.1",
     "express-static-gzip": "^0.2.2",
-    "mysql": "^2.13.0",
+    "jsonwebtoken": "^7.3.0",
+    "jwt-decode": "^2.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
@@ -46,7 +47,8 @@
     "sqlite": "^2.3.0"
   },
   "scripts": {
-    "dev": "node server-dev/index.js",
+    "dev-server": "nodemon --watch server server-dev/index.js",
+    "dev-webpack": "webpack --config server-dev/webpack.dev.config.js --watch",
     "start": "node build/server.js",
     "build": "webpack"
   }

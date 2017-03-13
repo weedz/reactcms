@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes, Users) {
+module.exports = function(sequelize, DataTypes, User) {
     return sequelize.define('news', {
         id: {
             type: DataTypes.INTEGER,
@@ -23,14 +23,14 @@ module.exports = function(sequelize, DataTypes, Users) {
             archive: {
                 attributes: ['id','title','intro','authorId','createdAt'],
                 include: [{
-                    model: Users,
+                    model: User,
                     as: 'author',
                     attributes: ['username']
                 }]
             },
             article: {
                 include: [{
-                    model: Users,
+                    model: User,
                     as: 'author',
                     attributes: ['username']
                 }]

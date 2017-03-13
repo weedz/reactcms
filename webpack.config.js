@@ -26,7 +26,7 @@ const server = {
     },
     entry: path.join(__dirname,'server','index.js'),
     output: {
-        path: path.join(__dirname,'build'),
+        path: BUILD_DIR,
         filename: 'server.js'
     },
     externals: nodeModules,
@@ -56,7 +56,7 @@ const client = {
         APP_DIR + '/index.js'
     ],
     output: {
-        path: BUILD_DIR,
+        path: path.join(BUILD_DIR,'public'),
         publicPath: '/',
         filename: 'static/js/bundle.js'
     },

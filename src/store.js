@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import promise from 'redux-promise-middleware';
 import Thunk from 'redux-thunk';
 import createSocketIoMiddleware from 'redux-socket.io';
@@ -14,7 +14,10 @@ const socketIoMiddleware = createSocketIoMiddleware(socket, "socket/");
 const middleware = applyMiddleware(promise(), /*logger(),*/ Thunk, socketIoMiddleware);
 
 export default function configureStore() {
-    const store = createStore(rootReducers, middleware);
+    const store = createStore(rootReducers, compose(
+        middleware,
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    ));
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {

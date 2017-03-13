@@ -10,9 +10,16 @@ module.exports = function(sequelize, DataTypes) {
         username: {
             type: DataTypes.STRING,
             field: 'username',
-            unique: true
+            unique: true,
+            set: function(val) {
+                this.setDataValue('username', val.toLowerCase());
+            }
         },
-        password_hash: {
+        accessLevel: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
+        passwordHash: {
             type: DataTypes.STRING,
             field: 'password'
         },
@@ -20,17 +27,13 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.VIRTUAL,
             set: function(val) {
                 this.setDataValue('password', val);
-                this.setDataValue('password_hash', bcrypt.hashSync(val, 10));
+                this.setDataValue('passwordHash', bcrypt.hashSync(val, 10));
             }
         },
     }, {
         instanceMethods: {
             authenticate: function(val) {
-                if (bcrypt.compareSync(val, this.password_hash)) {
-                    return this;
-                } else {
-                    return false;
-                }
+                return bcrypt.compareSync(val, this.passwordHash)
             }
         }
     })

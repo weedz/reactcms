@@ -8,15 +8,15 @@ const dbConfig = config.get('dbConfig');
 
 const sequelize = new Sequelize(dbConfig.dbName, dbConfig.user, dbConfig.password, dbConfig.params);
 
-const Users = require('./Users')(sequelize, Sequelize.DataTypes);
-const News = require('./News')(sequelize, Sequelize.DataTypes, Users);
-News.belongsTo(Users, {as: 'author'});
+const User = require('./Users')(sequelize, Sequelize.DataTypes);
+const News = require('./News')(sequelize, Sequelize.DataTypes, User);
+News.belongsTo(User, {as: 'author'});
 
 sequelize.sync({
     force: true
 }).then(function() {
-    Users.create({
-        username: 'WeeDz',
+    User.create({
+        username: 'weedz',
         password: 'password'
     }).then(user => {
         _.times(15, function() {
@@ -27,12 +27,9 @@ sequelize.sync({
                 authorId: user.id
             });
         });
-        /*Users.findById(1).then(user => {
-            console.log(user.authenticate('password'));
-        });*/
     });
 });
 
 exports.sequelize = sequelize;
 exports.News = News;
-exports.Users = Users;
+exports.User = User;
