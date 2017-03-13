@@ -63,21 +63,6 @@ const client = {
     module: {
         loaders: [
             {
-                exclude: [
-                    /node_modules/,
-                    /\.html$/,
-                    /\.(js|jsx)$/,
-                    /\.css$/,
-                    /\.json$/,
-                    /\.svg$/
-                ],
-                loader: 'url',
-                query: {
-                    limit: 10000,
-                    name: 'static/media/[name].[ext]'
-                }
-            },
-            {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,

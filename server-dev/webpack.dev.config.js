@@ -6,7 +6,7 @@ const APP_DIR = path.resolve(__dirname, '../src');
 const config = {
     name: 'client',
     target: 'web',
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     context: __dirname,
     entry: [
         //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
@@ -17,25 +17,11 @@ const config = {
     },
     output: {
         path: path.join(__dirname,'js'),
+        publicPath: '/js/',
         filename: 'bundle.js'
     },
     module: {
         loaders: [
-            {
-                exclude: [
-                    /node_modules/,
-                    /\.html$/,
-                    /\.(js|jsx)$/,
-                    /\.css$/,
-                    /\.json$/,
-                    /\.svg$/
-                ],
-                loader: 'url',
-                query: {
-                    limit: 10000,
-                    name: 'static/media/[name].[ext]'
-                }
-            },
             {
                 test: /\.(js|jsx)$/,
                 loader: 'babel-loader',

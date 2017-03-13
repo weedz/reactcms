@@ -5,7 +5,7 @@ const expressStaticGzip = require("express-static-gzip");
 const path = require('path');
 const http = require('http');
 
-const socket = require('../server/websocket');
+const socket = require('./websocket');
 const app = express();
 const router = require('./router');
 

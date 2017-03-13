@@ -1,5 +1,5 @@
 const socket = require('socket.io');
-const { News, Users } = require('./models');
+const { News } = require('./models');
 
 const io = socket();
 
