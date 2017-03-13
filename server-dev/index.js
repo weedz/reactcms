@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
     require('../server/router')(req, res, next);
 });
 app.use(express.static(path.join(__dirname)));
-app.get(/^((?!.+\.js).)*$/, (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
