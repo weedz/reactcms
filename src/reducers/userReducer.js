@@ -7,7 +7,8 @@ export default function reducer(state={
     switch (action.type) {
         case "AUTHORIZE_USER_PENDING": {
             return {...state,
-                fetching: true
+                fetching: true,
+                fetched: false
             }
         }
         case "AUTHORIZE_USER_REJECTED": {
@@ -21,6 +22,11 @@ export default function reducer(state={
                 fetching: false,
                 fetched: true,
                 user: action.payload,
+            }
+        }
+        case "LOGOUT_USER": {
+            return {...state,
+                user: false
             }
         }
         case "ADD_USER_PENDING": {

@@ -1,5 +1,5 @@
 module.exports = {
-    path: 'dashboard',
+    path: 'dashboard(/:action)',
     component: require('./components/Dashboard')
     /*getComponent(parialState, cb) {
         require.ensure([], require => {

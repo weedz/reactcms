@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 import { connect } from 'react-redux';
 
@@ -7,6 +7,14 @@ import './Header.css';
 
 class Header extends Component {
     render() {
+        const userItems = [];
+        if (this.props.user.user) {
+            userItems.push(<Link key="dashboard" to="/user/dashboard/">Dashboard</Link>);
+            userItems.push(<Link key="logout" to="/user/dashboard/logout">Logout</Link>);
+        } else {
+            userItems.push(<Link key="login" to="/user/login"><li>Login</li></Link>);
+            userItems.push(<Link key="register" to="/user/register"><li>Register</li></Link>);
+        }
         return (
             <nav className="Header">
                 <div className="container">
@@ -19,8 +27,7 @@ class Header extends Component {
                     </div>
                     <div className="user-menu">
                         <ul>
-                            <Link to="/user/login"><li>Login</li></Link>
-                            <Link to="/user/register"><li>Register</li></Link>
+                            {userItems}
                         </ul>
                     </div>
                     <div className="search-bar">
