@@ -18,7 +18,7 @@ class Home extends React.Component {
             res.json()
         ).then(json => {
             this.setState({
-                authorized: json.errors ? 'Not authorized' : 'Authorized'
+                authorized: json.errors || 'Authorized'
             });
         });
     }
