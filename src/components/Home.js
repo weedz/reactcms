@@ -2,7 +2,7 @@ import React from 'react';
 import WidgetNews from '../routes/News/components/Widget';
 import './Home.css';
 
-class Home extends React.Component {
+export default class Home extends React.Component {
     constructor() {
         super();
         this.state = {

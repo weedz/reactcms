@@ -9,6 +9,7 @@ export default class News extends React.Component {
         ));
         return(
             <div className="News">
+                <p>News</p>
                 {articles}
                 {this.props.children}
             </div>

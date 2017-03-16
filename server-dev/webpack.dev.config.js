@@ -20,9 +20,6 @@ const config = {
     target: 'web',
     devtool: 'source-map',
     context: __dirname,
-    /*entry: [
-        path.resolve(APP_DIR, './index.js')
-    ],*/
     entry: {
         bundle: path.join(APP_DIR,'index.js'),
         vendor: vendorPackages
@@ -33,7 +30,8 @@ const config = {
     output: {
         path: path.join(__dirname,'js'),
         publicPath: '/js/',
-        filename: '[name].js'
+        filename: '[name].js',
+        chunkFilename: '[name].[id].js'
     },
     module: {
         loaders: [

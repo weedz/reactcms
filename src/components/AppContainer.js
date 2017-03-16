@@ -3,9 +3,8 @@ import Header from './Header';
 import Footer from './Footer';
 import './App.css';
 
-class AppContainer extends React.Component {
+export default class AppContainer extends React.Component {
     render() {
-        document.title = 'Home';
         return (
             <div>
                 <Header />
