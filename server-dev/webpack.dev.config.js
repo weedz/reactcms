@@ -20,9 +20,6 @@ const config = {
     target: 'web',
     devtool: 'source-map',
     context: __dirname,
-    /*entry: [
-        path.resolve(APP_DIR, './index.js')
-    ],*/
     entry: {
         bundle: path.join(APP_DIR,'index.js'),
         vendor: vendorPackages

@@ -19,7 +19,8 @@ export default function reducer(state={
             return {...state,
                 fetching: false,
                 lastFetch: Date.now(),
-                articles: action.payload
+                articles: action.payload.articles,
+                numberOfArticles: action.payload.count
             }
         }
         case "FETCH_NEWS_COUNT_FULFILLED": {

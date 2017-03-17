@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+//const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
 
 const BUILD_DIR = path.join(__dirname, '/build');
@@ -65,9 +65,6 @@ const client = {
     bail: true,
     target: 'web',
     devtool: false,
-    /*entry: [
-        APP_DIR + '/index.js'
-    ],*/
     entry: {
         bundle: path.join(APP_DIR,'index.js'),
         vendor: vendorPackages
@@ -146,10 +143,10 @@ const client = {
                 screw_ie8: true
             }
         }),
-        new CompressionPlugin({
+        /*new CompressionPlugin({
             test: /.\.css$|\.html$|\.jsx?$/,
             minRatio: 0.8
-        }),
+        }),*/
     ]
 };
 
