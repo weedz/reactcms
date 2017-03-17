@@ -26,6 +26,22 @@ export function validateToken(token) {
     }
 }
 
+export function newUser(formData) {
+    return {
+        type: "NEW_USER",
+        payload: fetch('/api/auth/register', {
+            method: 'post',
+            headers: {
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(formData)
+        }).then(res => res.json()).catch(err => {
+            console.log(err);
+            return err;
+        })
+    }
+}
+
 export function logout() {
     localStorage.removeItem('jwtToken');
     return {

@@ -5,14 +5,22 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            field: 'id',
+            field: '_id',
         },
         username: {
             type: DataTypes.STRING,
             field: 'username',
             unique: true,
+            allowNull: false,
             set: function(val) {
                 this.setDataValue('username', val.toLowerCase());
+            }
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            set: function(val) {
+                this.setDataValue('email', val.toLowerCase());
             }
         },
         accessLevel: {

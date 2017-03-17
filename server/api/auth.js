@@ -30,6 +30,31 @@ router.post('/', function(req, res) {
     });
 });
 
+router.post('/register', function(req, res) {
+    // TODO: Validation
+    User.create({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email
+    }).then(user => {
+        res.json({
+            message: 'User created'
+        });
+    }).catch(err => {
+        let error;
+        switch (err.errors[0].type) {
+            case 'unique violation':
+                error = 'Username is not available.';
+                break;
+            default:
+                error = 'Undefined error';
+        }
+        return res.json({
+            error
+        });
+    });
+});
+
 router.get('/check', function(req,res) {
     const auth = req.headers.authorization;
     if (auth) {

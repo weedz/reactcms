@@ -29,16 +29,31 @@ export default function reducer(state={
                 user: false
             }
         }
-        case "ADD_USER_PENDING": {
+        case "NEW_USER_PENDING": {
             return {...state,
                 fetching: true,
             }
         }
-        case "ADD_USER_FULFILLED": {
+        case "NEW_USER_FULFILLED": {
+            const newState = {
+                error: null,
+                user: false,
+            };
+            if (action.payload.error)
+                newState.error = action.payload.error;
+            else
+                newState.user = action.payload;
             return {...state,
                 fetching: false,
                 fetched: true,
-                user: action.payload
+                ...newState,
+            }
+        }
+        case "NEW_USER_REJECTED": {
+            return {...state,
+                fetching: false,
+                fetched: true,
+                error: action.payload
             }
         }
     }

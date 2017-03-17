@@ -17,7 +17,8 @@ sequelize.sync({
 }).then(function() {
     User.create({
         username: 'weedz',
-        password: 'password'
+        password: 'password',
+        email: 'weedz@localhost'
     }).then(user => {
         _.times(15, function() {
             News.create({
