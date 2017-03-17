@@ -1,6 +1,6 @@
 module.exports = {
     path: 'user',
-    getChildRoutes(partialNextState, cb) {
+    getChildRoutes(location, cb) {
         require.ensure([], require => {
             cb(null, [
                 require('./routes/Login'),

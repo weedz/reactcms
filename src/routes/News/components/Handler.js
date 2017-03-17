@@ -17,7 +17,6 @@ class Handler extends React.Component {
         };
     }
     componentWillMount() {
-        this.props.fetchNewsCount();
         this.updateArchive();
     }
     componentDidUpdate() {

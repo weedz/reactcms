@@ -3,22 +3,34 @@ const path = require('path');
 
 const APP_DIR = path.resolve(__dirname, '../src');
 
+const vendorPackages = [
+    'react',
+    'react-dom',
+    'react-router',
+    'react-redux',
+    'redux',
+    'redux-promise-middleware',
+    'redux-thunk',
+    'socket.io-client',
+    'redux-socket.io'
+];
+
 const config = {
     name: 'client',
     target: 'web',
     devtool: 'source-map',
     context: __dirname,
-    entry: [
-        //'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-        path.resolve(APP_DIR, './index.js')
-    ],
+    entry: {
+        bundle: path.join(APP_DIR,'index.js'),
+        vendor: vendorPackages
+    },
     stats: {
         colors: true
     },
     output: {
         path: path.join(__dirname,'js'),
         publicPath: '/js/',
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     module: {
         loaders: [
@@ -38,13 +50,17 @@ const config = {
         ]
     },
     plugins: [
-        //new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development')
             }
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: Infinity
+        }),
+
     ]
 };
 

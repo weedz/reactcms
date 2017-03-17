@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
+//const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
 
 const BUILD_DIR = path.join(__dirname, '/build');
@@ -16,6 +16,19 @@ let nodeModules = {};
 fs.readdirSync(path.resolve(__dirname,'node_modules'))
     .filter(x => ['.bin'].indexOf(x) === -1)
     .forEach(mod => { nodeModules[mod] = `commonjs ${mod}`; });
+
+const vendorPackages = [
+    'react',
+    'react-dom',
+    'react-router',
+    'react-redux',
+    'redux',
+    'redux-promise-middleware',
+    'redux-thunk',
+    'socket.io-client',
+    'redux-socket.io'
+];
+
 const server = {
     name: 'server',
     bail: true,
@@ -52,13 +65,14 @@ const client = {
     bail: true,
     target: 'web',
     devtool: false,
-    entry: [
-        APP_DIR + '/index.js'
-    ],
+    entry: {
+        bundle: path.join(APP_DIR,'index.js'),
+        vendor: vendorPackages
+    },
     output: {
         path: path.join(BUILD_DIR,'public'),
         publicPath: '/',
-        filename: 'static/js/bundle.js'
+        filename: 'static/js/[name].[chunkhash:8].js'
     },
     module: {
         loaders: [
@@ -107,11 +121,15 @@ const client = {
 
         }),
         new ExtractTextPlugin({
-            filename: "static/css/styles.css",
+            filename: "static/css/styles.[chunkhash:8].css",
             allChunks: true
         }),
         // Minify the code.
         new OptimizeCssAssetsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: Infinity
+        }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 screw_ie8: true,
@@ -125,10 +143,10 @@ const client = {
                 screw_ie8: true
             }
         }),
-        new CompressionPlugin({
+        /*new CompressionPlugin({
             test: /.\.css$|\.html$|\.jsx?$/,
             minRatio: 0.8
-        }),
+        }),*/
     ]
 };
 
