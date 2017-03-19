@@ -7,6 +7,7 @@ import { fetchNews, fetchNewsCount } from '../../../actions/newsActions';
 import News from './News';
 /*
 TODO: client side cache to prevent refetch of already fetched data
+TODO: use cursors to calculate archive page
  */
 class Handler extends React.Component {
 
