@@ -2,6 +2,7 @@ const PORT = process.env.PORT || 9000;
 
 const express = require('express');
 const compress = require('compression');
+const expressStaticGzip = require("express-static-gzip");
 const path = require('path');
 const http = require('http');
 
@@ -12,9 +13,7 @@ const router = require('./router');
 app.use(compress());
 app.use('/', router);
 
-app.use(express.static(path.join(__dirname, '..','build','public'), {
-    maxAge: 31536000
-}));
+app.use(expressStaticGzip(path.join(__dirname, '..','build','public')));
 
 app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'build','public','index.html'));
