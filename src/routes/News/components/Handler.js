@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchNews, fetchNewsCount } from '../../../actions/newsActions';
 
-import loadNews from 'bundle-loader?lazy!./News';
+let loadNews = require('bundle-loader!./News');
 /*
 TODO: client side cache to prevent refetch of already fetched data
 TODO: use cursors to calculate archive page
@@ -28,13 +28,12 @@ class Handler extends React.Component {
     render() {
         const currentPage = Number(this.state.page);
         const links = [];
-        const content = loadNews(mod => (
-                    <mod articles={this.props.articles} />
-                ));
-            //<News articles={this.props.articles}/>;
+        const content = loadNews(News => {
+            return News
+        });
+            //;
         return(
             <div className="component">
-                <p>handler</p>
                 {content}
                 <div>
                 {this.props.children === null ? links: null}
