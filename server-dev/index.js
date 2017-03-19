@@ -3,7 +3,8 @@
 const PORT = process.env.PORT || 9000;
 
 const path = require('path');
-const http = require('http');
+const fs = require('fs');
+const http = require('spdy');
 const express = require('express');
 
 const socket = require('../server/websocket');
@@ -18,7 +19,11 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-const server = http.createServer(app);
+const options = {
+    key: fs.readFileSync('key.perm'),
+    cert: fs.readFileSync('cert.perm'),
+};
+const server = http.createServer(options, app);
 server.listen(PORT, 'localhost', () => {
     console.info('App listening on localhost:' + PORT);
 });

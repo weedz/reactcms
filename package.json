@@ -43,6 +43,7 @@
     "sequelize": "^3.30.2",
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
+    "spdy": "^3.4.4",
     "sqlite": "^2.3.0"
   },
   "scripts": {
