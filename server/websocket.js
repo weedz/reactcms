@@ -17,10 +17,13 @@ module.exports = function(server) {
                 } else {
                     News.scope('archive',{
                         method: ['page',page]
-                    }).findAll().then(res => {
+                    }).findAndCountAll().then(res => {
                         socket.emit('action', {
                             type: 'FETCH_NEWS_FULFILLED',
-                            payload: res.map(article => article.get())
+                            payload: {
+                                articles: res.rows.map(article => article.get()),
+                                count: res.count
+                            }
                         });
                     });
                 }
