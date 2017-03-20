@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import Routes from './routes.js';
+import Routes from './routes';
 
 import { validateToken } from './actions/userActions';
 
@@ -16,9 +16,7 @@ if (localStorage.getItem('jwtToken')) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <Routes>
-            <p>ROOT?</p>
-        </Routes>
+        <Routes />
     </Provider>,
     document.getElementById('root')
 );

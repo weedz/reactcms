@@ -69,8 +69,8 @@ const client = {
     output: {
         path: path.join(BUILD_DIR,'public'),
         publicPath: '/',
-        //filename: 'static/js/[name].[chunkhash:8].js'
-        filename: 'static/js/[name].js'
+        filename: 'static/js/[name].js',
+        chunkFilename: 'static/js/[name].[chunkhash:8].js'
     },
     module: {
         loaders: [
