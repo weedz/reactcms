@@ -16,6 +16,7 @@
     "proxy-middleware": "^0.15.0",
     "react-dev-utils": "^0.5.1",
     "style-loader": "^0.14.1",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"
@@ -50,6 +51,7 @@
     "dev-server": "nodemon --watch server server-dev/index.js",
     "dev-webpack": "webpack --config server-dev/webpack.dev.config.js --watch",
     "start": "node build/server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "min-server": "uglifyjs --compress --mangle -o build/server.min.js -- build/server.js"
   }
 }

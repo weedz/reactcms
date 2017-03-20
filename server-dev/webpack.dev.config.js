@@ -7,6 +7,7 @@ const vendorPackages = [
     'react',
     'react-dom',
     'react-router',
+    'react-router-dom',
     'react-redux',
     'redux',
     'redux-promise-middleware',
@@ -40,7 +41,7 @@ const config = {
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: ['es2015','react','stage-0'],
+                    presets: ['react','stage-0'],
                 }
             },
             {

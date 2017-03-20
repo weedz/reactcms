@@ -21,6 +21,7 @@ const vendorPackages = [
     'react',
     'react-dom',
     'react-router',
+    'react-router-dom',
     'react-redux',
     'redux',
     'redux-promise-middleware',
@@ -50,15 +51,11 @@ const server = {
                 loader: 'babel-loader',
                 query: {
                     babelrc: false,
-                    presets: ['es2015'],
+                    presets: ['stage-0'],
                 }
             }
         ]
     },
-    plugins: [
-        // Minify the code.
-        new webpack.optimize.UglifyJsPlugin(),
-    ]
 };
 const client = {
     name: 'client',
@@ -82,7 +79,7 @@ const client = {
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: ['es2015','react','stage-0'],
+                    presets: ['react','stage-0'],
                 }
             },
             {
