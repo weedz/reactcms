@@ -23,10 +23,10 @@ class Archive extends React.Component {
         const currentPage = Number(this.props.match.params.page);
         if (isNaN(currentPage) && this.props.children) {
 
-        } else if (isNaN(currentPage) && this.state.page != 1) {
+        } else if (isNaN(currentPage) && this.state.page !== 1) {
             this.state.page = 1;
             this.updateArchive();
-        } else if (!isNaN(currentPage) && this.state.page != currentPage) {
+        } else if (!isNaN(currentPage) && this.state.page !== currentPage) {
             this.state.page = currentPage;
             this.updateArchive();
         }

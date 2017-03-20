@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { newUser } from '../../../../actions/userActions';
 
 class Register extends React.Component {
     render() {
@@ -19,11 +17,6 @@ function mapStateToProps(state) {
         error: state.user.error
     }
 }
-function mapDispatchToProps(dispatch) {
-    return(bindActionCreators({
-        newUser
-    }, dispatch));
-}
 
-const defaultExport = connect(mapStateToProps, mapDispatchToProps)(Register);
+const defaultExport = connect(mapStateToProps)(Register);
 export default defaultExport;
