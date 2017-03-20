@@ -7,6 +7,6 @@ const compress = require('compression');
 const path = require('path');
 const app = express();
 
-require('../server/setup')(app, express, HOST, PORT, path.resolve(__dirname,'build','public'));
+require('../server/setup')(app, express, HOST, PORT, path.resolve(__dirname,'..','build','public'));
 
 app.use(compress());
