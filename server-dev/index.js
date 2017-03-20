@@ -4,12 +4,17 @@ const PORT = process.env.PORT || 9000;
 
 const path = require('path');
 const fs = require('fs');
-const http = require('spdy');
+const http = require('http2');
 const express = require('express');
 
 const socket = require('../server/websocket');
 
 const app = express();
+require('express-http2-workaround')({
+    express,
+    http2:http,
+    app
+});
 
 app.use(function(req, res, next) {
     require('../server/router')(req, res, next);

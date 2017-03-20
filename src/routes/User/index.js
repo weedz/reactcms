@@ -7,7 +7,6 @@ import Dashboard from './routes/Dashboard';
 
 export default class User extends React.Component {
     render = () => {
-        console.log(Login);
         return (
             <div>
                 <Route path={`${this.props.match.url}/login`} component={Login}/>
