@@ -1,11 +1,10 @@
 import React from 'react';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import rootRoute from './routes';
 export default class App extends React.Component {
     render() {
         return(
-            <Router
-                history={browserHistory}
+            <BrowserRouter
                 routes={rootRoute}
             />
         );

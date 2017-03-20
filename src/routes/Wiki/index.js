@@ -1,8 +1,11 @@
-module.exports = {
-    path: 'wiki',
-    getComponent(location, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./components/Wiki'))
-        })
+import React from 'react';
+
+export default class Wiki extends React.Component {
+    render() {
+        return(
+            <div className="component">
+                <p>Wiki</p>
+            </div>
+        );
     }
-};
+}

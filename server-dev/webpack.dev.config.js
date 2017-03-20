@@ -31,7 +31,8 @@ const config = {
     output: {
         path: path.join(__dirname,'js'),
         publicPath: '/js/',
-        filename: '[name].js'
+        filename: '[name].js',
+        chunkFilename: '[name].[id].js'
     },
     module: {
         loaders: [

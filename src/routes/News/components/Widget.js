@@ -30,4 +30,3 @@ const defaultExport = connect((state) => ({
 ))(Widget);
 
 export default defaultExport;
-module.exports = defaultExport;

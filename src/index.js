@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import Routes from './routes.js';
+
 import { validateToken } from './actions/userActions';
 
 import Store from './store';
@@ -12,16 +14,11 @@ if (localStorage.getItem('jwtToken')) {
     store.dispatch(validateToken(localStorage.getItem('jwtToken')));
 }
 
-const render = () => {
-    const App = require('./App').default;
-    ReactDOM.render(
+ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Routes>
+            <p>ROOT?</p>
+        </Routes>
     </Provider>,
-        document.getElementById('root')
-    )
-};
-
-if (module.hot) module.hot.accept('./App', () => render());
-
-render();
+    document.getElementById('root')
+);
