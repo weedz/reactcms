@@ -7,15 +7,15 @@ module.exports = function(sequelize, DataTypes, User) {
             field: 'id',
         },
         title: {
-            type: DataTypes.TEXT('tiny'),
+            type: DataTypes.TEXT,
             field: 'title'
         },
         intro: {
-            type: DataTypes.TEXT('medium'),
+            type: DataTypes.TEXT,
             field: 'intro'
         },
         content: {
-            type: DataTypes.TEXT('long'),
+            type: DataTypes.TEXT,
             field: 'content'
         },
     }, {
