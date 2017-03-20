@@ -72,4 +72,3 @@ const defaultExport = connect((state) => ({
 ))(Archive);
 
 export default defaultExport;
-module.exports = defaultExport;

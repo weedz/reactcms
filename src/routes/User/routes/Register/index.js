@@ -27,4 +27,3 @@ function mapDispatchToProps(dispatch) {
 
 const defaultExport = connect(mapStateToProps, mapDispatchToProps)(Register);
 export default defaultExport;
-module.exports = defaultExport;

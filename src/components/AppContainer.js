@@ -16,4 +16,3 @@ export default class AppContainer extends React.Component {
         );
     }
 }
-module.exports = AppContainer;

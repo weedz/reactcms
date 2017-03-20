@@ -60,4 +60,3 @@ const defaultExport = connect(state => ({
 ))(Login);
 
 export default defaultExport;
-module.exports = defaultExport;

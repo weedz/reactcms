@@ -44,4 +44,3 @@ const defaultExport = connect(state => ({
     },dispatch)
 ))(Dashboard);
 export default defaultExport;
-module.exports = defaultExport;

@@ -9,4 +9,3 @@ export default class Wiki extends React.Component {
         );
     }
 }
-module.exports = Wiki;

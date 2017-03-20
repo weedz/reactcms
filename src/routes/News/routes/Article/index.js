@@ -43,4 +43,3 @@ const defaultExport = connect((state) => ({
 ))(ArticleHandler);
 
 export default defaultExport;
-module.exports = defaultExport;
