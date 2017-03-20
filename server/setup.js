@@ -3,6 +3,8 @@ const http2 = require('http2');
 const config = require('config');
 const expressStaticGzip = require("express-static-gzip");
 const path = require('path');
+const compress = require('compression');
+
 const router = require('./router');
 
 module.exports = function(app, express, HOST, PORT, staticPath) {
@@ -11,6 +13,8 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
         http2,
         app
     });
+
+    app.use(compress());
 
     app.use('/', router);
 
