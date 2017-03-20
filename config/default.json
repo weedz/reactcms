@@ -11,5 +11,9 @@
       "storage":"db.sqlite",
       "dialectOptions":{}
     }
+  },
+  "tlsOptions": {
+    "cert":"cert.perm",
+    "key":"key.perm"
   }
 }
