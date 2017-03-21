@@ -16,11 +16,12 @@ export default function reducer(state={
             }
         }
         case "FETCH_NEWS_FULFILLED": {
+            const data = action.payload.data;
             return {...state,
                 fetching: false,
                 lastFetch: Date.now(),
-                articles: action.payload.articles,
-                numberOfArticles: action.payload.count
+                articles: data.articles,
+                numberOfArticles: data.articles.length
             }
         }
         case "FETCH_NEWS_COUNT_FULFILLED": {

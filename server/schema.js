@@ -17,6 +17,7 @@ const ArticleType = new GraphQLObjectType({
         title: {type: GraphQLString},
         intro: {type: GraphQLString},
         content: {type: GraphQLString},
+        createdAt: {type: GraphQLString},
         author: {
             type: UserType,
             resolve: resolver(model.News.Author)

@@ -21,7 +21,7 @@ export default function reducer(state={
             return {...state,
                 fetching: false,
                 lastFetch: Date.now(),
-                article: action.payload
+                article: action.payload.data.article
             }
         }
     }
