@@ -3,7 +3,7 @@ import News from './News';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchNews } from '../../../actions/newsActions';
+import { fetchNewsGraphQL } from '../../../actions/newsActions';
 
 class Widget extends React.Component {
 
@@ -11,7 +11,7 @@ class Widget extends React.Component {
         super();
     }
     componentWillMount() {
-        this.props.fetchNews(1);
+        this.props.fetchNewsGraphQL();
     }
     render() {
         return(
@@ -25,7 +25,7 @@ const defaultExport = connect((state) => ({
     lastFetch: state.news.lastFetch
 }), (dispatch) => (
     bindActionCreators({
-        fetchNews
+        fetchNewsGraphQL
     }, dispatch)
 ))(Widget);
 
