@@ -21,17 +21,15 @@ module.exports = function(sequelize, DataTypes, User) {
     }, {
         scopes: {
             archive: {
-                attributes: ['id','title','intro','authorId','createdAt'],
+                attributes: ['id','title','intro','userId','createdAt'],
                 include: [{
                     model: User,
-                    as: 'author',
                     attributes: ['username']
                 }]
             },
             article: {
                 include: [{
                     model: User,
-                    as: 'author',
                     attributes: ['username']
                 }]
             },
@@ -42,5 +40,5 @@ module.exports = function(sequelize, DataTypes, User) {
                 }
             }
         }
-    });
+    })
 };

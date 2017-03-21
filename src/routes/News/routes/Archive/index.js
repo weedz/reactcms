@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import News from '../../components/News';
-import { fetchNews, fetchNewsCount } from '../../../../actions/newsActions';
+import { fetchNews } from '../../../../actions/newsActions';
 
 
 class Archive extends React.Component {
@@ -67,7 +67,7 @@ const defaultExport = connect((state) => ({
     fetching: state.news.fetching,
 }), (dispatch) => (
     bindActionCreators({
-        fetchNews, fetchNewsCount
+        fetchNews
     }, dispatch)
 ))(Archive);
 

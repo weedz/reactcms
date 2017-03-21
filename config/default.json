@@ -4,8 +4,6 @@
     "password": "",
     "dbName": "reactcms",
     "params":{
-      "host": "localhost",
-      "port": 3306,
       "logging": false,
       "dialect": "sqlite",
       "storage":"db.sqlite",

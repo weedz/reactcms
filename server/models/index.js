@@ -10,21 +10,38 @@ const sequelize = new Sequelize(dbConfig.dbName, dbConfig.user, dbConfig.passwor
 
 const User = require('./Users')(sequelize, Sequelize.DataTypes);
 const News = require('./News')(sequelize, Sequelize.DataTypes, User);
-News.belongsTo(User, {as: 'author'});
+// relations
+News.Author = News.belongsTo(User);
+User.Articles = User.hasMany(News);
 
 sequelize.sync({
     force: true
 }).then(function() {
+    _.times(5, function() {
+        User.create({
+            username: faker.name.firstName(),
+            password: faker.lorem.words(1)
+        }).then(user => {
+            _.times(3, function() {
+                News.create({
+                    title: faker.lorem.sentence(),
+                    intro: faker.lorem.paragraph(),
+                    content: faker.lorem.paragraphs(),
+                    userId: user.id
+                });
+            });
+        })
+    });
     User.create({
         username: 'weedz',
         password: 'password'
     }).then(user => {
-        _.times(15, function() {
+        _.times(8, function() {
             News.create({
                 title: faker.lorem.sentence(),
                 intro: faker.lorem.paragraph(),
                 content: faker.lorem.paragraphs(),
-                authorId: user.id
+                userId: user.id
             });
         });
     });
