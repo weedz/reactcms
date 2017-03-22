@@ -3,10 +3,7 @@ import { bindActionCreators } from 'redux';
 
 function wrapper(component, mapStateToProps, mapDispatchToProps) {
     return connect(
-        (state) => mapStateToProps.reduce(function(map, obj) {
-            map[obj] = state[obj];
-            return map;
-        }, {}),
+        mapStateToProps,
         dispatch => (
             bindActionCreators(mapDispatchToProps, dispatch)
         )

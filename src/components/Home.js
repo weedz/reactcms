@@ -3,6 +3,8 @@ import Relay from 'react-relay';
 import WidgetNews from '../routes/News/components/Widget';
 import './Home.css';
 
+import { validateToken } from '../actions/userActions';
+
 import wrapper from '../wrapper/RelayReduxWrapper';
 
 class Home extends React.Component {
@@ -13,7 +15,7 @@ class Home extends React.Component {
         }
     }
     checkAuthorized() {
-        fetch('/api/auth/check', {
+        /*fetch('/api/auth/check', {
             headers: {
                 'Authorization': `bearer ${localStorage.getItem('jwtToken')}`,
             }
@@ -23,7 +25,8 @@ class Home extends React.Component {
             this.setState({
                 authorized: json.errors ? 'Not authorized' : 'Authorized'
             });
-        });
+        });*/
+        this.props.validateToken(localStorage.getItem('jwtToken'));
     }
     render() {
         return(
@@ -37,7 +40,7 @@ class Home extends React.Component {
                     }</ul>
                     <p>Hello?</p>
                     <input type="button" value="Authorized?" onClick={this.checkAuthorized.bind(this)}/>
-                    <p>{this.state.authorized}</p>
+                    <p>{this.state.authorized || this.props.user.user ? 'Authorized' : ''}</p>
                 </div>
                 <div className="clear" />
             </div>
@@ -58,7 +61,10 @@ export default wrapper(Home, {
             }
         `
     },
-    [
-        'user'
-    ]
+    (state) => ({
+        user: state.user
+    }),
+    {
+        validateToken
+    }
 );
