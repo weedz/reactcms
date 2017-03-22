@@ -1,8 +1,11 @@
 import React from 'react';
+import Relay from 'react-relay';
 import WidgetNews from '../routes/News/components/Widget';
 import './Home.css';
 
-export default class Home extends React.Component {
+import wrapper from '../wrapper/RelayReduxWrapper';
+
+class Home extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -29,6 +32,9 @@ export default class Home extends React.Component {
                     <WidgetNews/>
                 </div>
                 <div className="content">
+                    <ul>{
+                        this.props.users.edges.map(({node}) => (<li key={node.__dataID__}>{node.username}</li>))
+                    }</ul>
                     <p>Hello?</p>
                     <input type="button" value="Authorized?" onClick={this.checkAuthorized.bind(this)}/>
                     <p>{this.state.authorized}</p>
@@ -38,3 +44,21 @@ export default class Home extends React.Component {
         );
     }
 }
+
+export default wrapper(Home, {
+        key: 'users',
+        fragment: Relay.QL`
+            fragment on UsersConnection {
+                    edges {
+                        node {
+                            username
+                            _id
+                        }
+                    }
+            }
+        `
+    },
+    [
+        'user'
+    ]
+);

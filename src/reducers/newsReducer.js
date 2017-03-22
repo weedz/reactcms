@@ -20,7 +20,7 @@ export default function reducer(state={
             return {...state,
                 fetching: false,
                 lastFetch: Date.now(),
-                articles: data.articles,
+                articles: data.articles.edges,
                 numberOfArticles: data.articles.length
             }
         }

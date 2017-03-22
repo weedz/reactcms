@@ -15,15 +15,22 @@ export function fetchNewsCount() {
 // TODO: use cursor to implement pagination
 export function fetchNewsGraphQL() {
     const query = `{
-            articles {
-                id
-                title
-                intro
-                createdAt
-                author {
-                    id
-                    username
+            articles(first:10) {
+                edges {
+                    node {
+                        id
+                        _id
+                        title
+                        intro
+                        createdAt
+                        author {
+                            id
+                            username
+                        }
+                    }
                 }
+                
+                
             }
         }`;
     return {

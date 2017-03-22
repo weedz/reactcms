@@ -24,6 +24,7 @@
     "webpack-hot-middleware": "^2.17.1"
   },
   "dependencies": {
+    "babel-relay-plugin": "^0.11.0",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.16.1",
     "bundle-loader": "^0.5.5",
@@ -31,20 +32,20 @@
     "config": "^1.25.1",
     "express": "^5.0.0-alpha.5",
     "express-graphql": "^0.6.3",
-    "express-http2-workaround": "^1.1.2",
     "faker": "^4.1.0",
     "graphiql": "^0.9.3",
     "graphql": "^0.9.1",
     "graphql-relay": "^0.5.1",
     "graphql-sequelize": "^5.3.1",
-    "http2": "^3.3.6",
     "jsonwebtoken": "^7.3.0",
     "jwt-decode": "^2.1.0",
     "lodash": "^4.17.4",
+    "mysql": "^2.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-loadable": "^3.0.1",
     "react-redux": "^5.0.3",
+    "react-relay": "^0.10.0",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
@@ -55,6 +56,7 @@
     "sequelize": "^3.30.2",
     "socket.io": "^1.7.3",
     "socket.io-client": "^1.7.3",
+    "spdy": "^3.4.4",
     "sqlite3": "^3.1.8"
   },
   "scripts": {
@@ -62,6 +64,7 @@
     "dev-webpack": "webpack --config server-dev/webpack.dev.config.js --watch",
     "start": "node build/server.js",
     "build": "webpack",
-    "min-server": "uglifyjs --compress --mangle -o build/server.min.js -- build/server.js"
+    "min-server": "uglifyjs --compress --mangle -o build/server.min.js -- build/server.js",
+    "update-schema": "node ./scripts/updateSchema"
   }
 }

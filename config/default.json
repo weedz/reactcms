@@ -4,9 +4,10 @@
     "password": "",
     "dbName": "reactcms",
     "params":{
+      "host":"localhost",
+      "post":"3306",
       "logging": false,
-      "dialect": "sqlite",
-      "storage":"db.sqlite",
+      "dialect": "mysql",
       "dialectOptions":{}
     }
   },

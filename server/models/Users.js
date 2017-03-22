@@ -1,5 +1,7 @@
+const { DataTypes } =  require('sequelize');
+
 const bcrypt = require('bcrypt');
-module.exports = function(sequelize, DataTypes) {
+function define(sequelize, DataTypes) {
     return sequelize.define('users', {
         id: {
             type: DataTypes.INTEGER,
@@ -37,4 +39,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     })
-};
+}
+
+module.exports = define;

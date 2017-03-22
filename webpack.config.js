@@ -23,6 +23,7 @@ const vendorPackages = [
     'react-router',
     'react-router-dom',
     'react-redux',
+    'react-relay',
     'redux',
     'redux-promise-middleware',
     'redux-thunk',

@@ -1,5 +1,10 @@
 const webpack = require('webpack');
+const getBabelRelayPlugin = require('babel-relay-plugin');
 const path = require('path');
+
+const schemaData = require('../schema.json').data;
+
+const relayPlugin = getBabelRelayPlugin(schemaData);
 
 const APP_DIR = path.resolve(__dirname, '../src');
 
@@ -9,6 +14,7 @@ const vendorPackages = [
     'react-router',
     'react-router-dom',
     'react-redux',
+    'react-relay',
     'redux',
     'redux-promise-middleware',
     'redux-thunk',
@@ -42,7 +48,11 @@ const config = {
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: ['react','stage-0'],
+                    presets: [
+                        {
+                            plugins: [relayPlugin]
+                        },
+                        'react','stage-0'],
                 }
             },
             {

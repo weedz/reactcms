@@ -1,73 +1,190 @@
 const {
+    GraphQLBoolean,
+    GraphQLEnumType,
     GraphQLInt,
-    GraphQLSchema,
+    GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
+    GraphQLSchema,
     GraphQLString,
-    GraphQLList
 } = require('graphql');
-const { resolver } = require('graphql-sequelize');
+const {
+    resolver,
+    relay: {
+        sequelizeNodeInterface,
+        sequelizeConnection
+    }
+} = require('graphql-sequelize');
 
-const model = require('./models');
+const {
+    globalIdField,
+} = require('graphql-relay');
+
+const {
+    sequelize,
+    User,
+    News,
+} = require('./models');
+const {
+    nodeInterface,
+    nodeField,
+    nodeTypeMapper
+} = sequelizeNodeInterface(sequelize);
+
 
 const ArticleType = new GraphQLObjectType({
-    name: 'Article',
-    description: '',
+    name: News.name,
     fields: () => ({
-        id: {type: GraphQLString},
+        _id: {
+            type: GraphQLInt,
+            resolve(obj) {
+                return obj.id;
+            }
+        },
+        id: globalIdField(News.name),
         title: {type: GraphQLString},
         intro: {type: GraphQLString},
         content: {type: GraphQLString},
         createdAt: {type: GraphQLString},
         author: {
             type: UserType,
-            resolve: resolver(model.News.Author)
+            resolve: resolver(News.Author)
         }
-    })
+    }),
+    interfaces: [nodeInterface]
 });
 
 const UserType = new GraphQLObjectType({
-    name: 'User',
-    description: '',
+    name: User.name,
     fields: () => ({
-        id: {type: GraphQLInt},
+        _id: {
+            type: GraphQLInt,
+            resolve(obj) {
+                return obj.id;
+            }
+        },
+        id: globalIdField(User.name),
         username: {type: GraphQLString},
         articles: {
-            type: new GraphQLList(ArticleType),
-            resolve: resolver(model.User.Articles)
+            type: userArticleConnection.connectionType,
+            args: userArticleConnection.connectionArgs,
+            resolve: userArticleConnection.resolve
+        },
+    }),
+    interfaces: [nodeInterface]
+});
+
+nodeTypeMapper.mapTypes({
+    [User.name]: UserType,
+    [News.name]: ArticleType
+});
+
+const userArticleConnection = sequelizeConnection({
+    name: 'userArticle',
+    nodeType: ArticleType,
+    target: User.Articles,
+    where: (key, value, currentWhere) => ({
+        [key]:value,
+    }),
+    orderBy: new GraphQLEnumType({
+        name: 'UserArticleOrderBy',
+        values: {
+            AGE: {value: ['createdAt','DESC']},
+            TITLE: {value: ['title','ASC']}
+        }
+    }),
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: ({source}) => source.countNews()
+        }
+    },
+});
+
+const userConnection = sequelizeConnection({
+    name: 'Users',
+    nodeType: UserType,
+    target: User,
+    where: (key, value, currentWhere) => ({
+        [key]:value,
+    }),
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: (source) =>  source.fullCount || source.edges.length
+        }
+    },
+    orderBy: new GraphQLEnumType({
+        name: 'UserOrderBy',
+        values: {
+            ID: {value: ['id','ASC']},
+            NAME: {value: ['username','ASC']}
         }
     })
 });
 
-const QueryType = new GraphQLObjectType({
-    name: 'Query',
-    description: '',
-    fields: {
+const articleConnection = sequelizeConnection({
+    name: 'Articles',
+    nodeType: ArticleType,
+    target: News,
+    where: (key, value, currentWhere) => ({
+        [key]:value,
+    }),
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: (source) =>  source.fullCount || source.edges.length
+        }
+    },
+    orderBy: new GraphQLEnumType({
+        name: 'ArticleOrderBy',
+        values: {
+            ID: {value: ['id','ASC']},
+            AGE: {value: ['createdAt','DESC']}
+        }
+    })
+});
+
+const RootType = new GraphQLObjectType({
+    name: 'Root',
+    fields:() => ({
+        root: {
+            type: RootType,
+            resolve: () => ({})
+        },
         article: {
             type: ArticleType,
             args: {
-                id: { type: GraphQLInt }
+                id: {
+                    type: new GraphQLNonNull(GraphQLInt)
+                }
             },
-            resolve: resolver(model.News)
+            resolve: resolver(News)
         },
         articles: {
-            type: new GraphQLList(ArticleType),
-            resolve: resolver(model.News)
+            type: articleConnection.connectionType,
+            args: articleConnection.connectionArgs,
+            resolve: articleConnection.resolve
         },
         user: {
             type: UserType,
             args: {
-                id: {type: GraphQLInt}
+                id: {
+                    type: new GraphQLNonNull(GraphQLInt)
+                }
             },
-            resolve: resolver(model.User)
+            resolve: resolver(User)
         },
         users: {
-            type: new GraphQLList(UserType),
-            resolve: resolver(model.User)
-        }
-    }
+            type: userConnection.connectionType,
+            args: userConnection.connectionArgs,
+            resolve: userConnection.resolve
+        },
+        node: nodeField,
+    })
 });
 
 const defaultExport = new GraphQLSchema({
-    query: QueryType
+    query: RootType
 });
 module.exports = defaultExport;

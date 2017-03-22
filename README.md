@@ -25,7 +25,7 @@ nodemon --watch server server-dev/index.js
 or ``npm run dev-server`` to start http server and listen for changes in server directory.
 
 ### Database setup
-SQLite by default. Database config is located in ``config/[env].json`` under "dbConfig". See [Sequelize](http://docs.sequelizejs.com/en/v3/) for config setup.
+MySQL by default (sequelize with SQLite does not support ``articles(first:1,orderBy:AGE)``). Database config is located in ``config/[env].json`` under "dbConfig". See [Sequelize](http://docs.sequelizejs.com/en/v3/) for config setup.
 
 ### TLS Encryption
 Backend uses http2 by default. Path to key and certificate can be configured in ``config/[env].json`` under "tlsOptions"
