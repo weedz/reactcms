@@ -5,18 +5,19 @@
     };
 }*/
 export function fetchArticleGraphQL(id) {
-    const query = `{
+    let query = `{
         article(id:${id}) {
-            id
-            title
-            content
-            createdAt
+            id,
+            title,
+            content,
+            createdAt,
             author {
-                id
-                username
+                id,
+                username,
             }
         }
     }`;
+    query = query.replace(/\s/g,'');
     return {
         type: "FETCH_ARTICLE",
         payload: fetch('/graphql',{

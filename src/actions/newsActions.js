@@ -14,18 +14,19 @@ export function fetchNewsCount() {
 }
 // TODO: use cursor to implement pagination
 export function fetchNewsGraphQL() {
-    const query = `{
+    let query = `{
             articles {
-                id
-                title
-                intro
-                createdAt
+                id,
+                title,
+                intro,
+                createdAt,
                 author {
-                    id
-                    username
+                    id,
+                    username,
                 }
             }
         }`;
+    query = query.replace(/\s/g,'');
     return {
         type: "FETCH_NEWS",
         payload: fetch('/graphql', {
