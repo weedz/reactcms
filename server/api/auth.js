@@ -6,7 +6,15 @@ const { User } = require('../models');
 
 router.use(bodyParser.json());
 
+router.use((req,res,next) => {
+    res.set({
+        'Cache-Control':'private, no-store',
+    });
+    next();
+});
+
 router.post('/', function(req, res) {
+
     User.findOne({
         where: { username: req.body.username }
     }).then(user => {
