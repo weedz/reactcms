@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { connect } from 'react-redux';
+import wrapper from '../wrappers/ReduxWrapper';
 
 import './Header.css';
 
@@ -47,8 +47,6 @@ class Header extends Component {
     }
 }
 
-const defaultExport = connect(state => ({
-    user: state.user
-}))(Header);
-
-export default defaultExport;
+export default wrapper(Header, (state) => ({
+    user: state.auth
+}));

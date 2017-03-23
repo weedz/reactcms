@@ -4,6 +4,8 @@ const config = require('config');
 const expressStaticGzip = require("express-static-gzip");
 const path = require('path');
 const compress = require('compression');
+const expressGraphQL = require('express-graphql');
+const schema = require('./schema');
 
 const router = require('./router');
 
@@ -13,6 +15,13 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
     app.use(compress());
 
     app.use('/', router);
+
+    app.use('/graphql', expressGraphQL(req => ({
+        formatError: console.error,
+        graphiql: true,
+        schema,
+        rootValue: req,
+    })));
 
     app.use(expressStaticGzip(staticPath, {
         enableBrotli: true,

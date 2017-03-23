@@ -1,7 +1,6 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { authorizeUser } from '../../../../actions/userActions';
+import wrapper from '../../../../wrappers/ReduxWrapper';
+import { authorizeUser } from '../../../../actions/authActions';
 
 class Login extends React.Component {
     constructor() {
@@ -51,12 +50,8 @@ class Login extends React.Component {
     }
 }
 
-const defaultExport = connect(state => ({
-    user: state.user.user,
-}), dispatch => (
-    bindActionCreators({
-        authorizeUser,
-    }, dispatch)
-))(Login);
-
-export default defaultExport;
+export default wrapper(Login, state => ({
+    user: state.auth.user,
+}), {
+    authorizeUser
+});

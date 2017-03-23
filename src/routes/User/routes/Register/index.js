@@ -13,8 +13,8 @@ class Register extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.user.user,
-        error: state.user.error
+        user: state.auth.user,
+        error: state.auth.error
     }
 }
 

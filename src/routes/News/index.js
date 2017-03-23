@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import Archive from './routes/Archive';
 import Article from './routes/Article';
 
-
 /*
  TODO: client side cache to prevent refetch of already fetched data
  */

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+
+import wrapper from '../../../../wrappers/ReduxWrapper';
 
 import News from '../../components/News';
-import { fetchNews, fetchNewsCount } from '../../../../actions/newsActions';
+import { fetchNewsGraphQL } from '../../../../actions/newsActions';
 
 
 class Archive extends React.Component {
@@ -33,7 +33,8 @@ class Archive extends React.Component {
     }
 
     updateArchive() {
-        this.props.fetchNews(this.state.page);
+        //this.props.fetchNews(this.state.page);
+        this.props.fetchNewsGraphQL();
     }
 
     render() {
@@ -60,15 +61,11 @@ class Archive extends React.Component {
     }
 }
 
-const defaultExport = connect((state) => ({
+export default wrapper(Archive, (state) => ({
     articles: state.news.articles,
     numberOfArticles: state.news.numberOfArticles,
     lastFetch: state.news.lastFetch,
     fetching: state.news.fetching,
-}), (dispatch) => (
-    bindActionCreators({
-        fetchNews, fetchNewsCount
-    }, dispatch)
-))(Archive);
-
-export default defaultExport;
+}), {
+    fetchNewsGraphQL
+});
