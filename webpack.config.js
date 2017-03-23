@@ -119,7 +119,7 @@ const client = {
 
         }),
         new ExtractTextPlugin({
-            filename: "static/css/styles.css",
+            filename: "static/css/styles.[chunkhash:8].css",
             allChunks: true
         }),
         // Minify the code.
