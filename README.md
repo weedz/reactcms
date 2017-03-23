@@ -9,7 +9,7 @@ npm install windows-build-tools
 ## Setup
 Clone this repository into an empty folder. Set ``NODE_ENV`` to development (on windows: ``set NODE_ENV=development``, on linux: ``export NODE_ENV=development``) then run ``npm install`` to download node modules. 
 
-Run ``npm run build`` to build production. Run ``npm start`` to start express server.
+Run ``npm run build`` to build production. Run ``npm start`` to start webserver server(uses ``http2/https``, default listening on ``0.0.0.0:9000``).
 
 ## Development
 Install ``webpack`` as global. Then you can run 
