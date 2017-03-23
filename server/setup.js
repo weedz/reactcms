@@ -1,5 +1,5 @@
 const fs = require('fs');
-const spdy = require('spdy');
+const http2 = require('http2');
 const config = require('config');
 const expressStaticGzip = require("express-static-gzip");
 const path = require('path');
@@ -10,7 +10,8 @@ const schema = require('./schema');
 const router = require('./router');
 
 module.exports = function(app, express, HOST, PORT, staticPath) {
-
+    express.request.__proto__ = http2.IncomingMessage.prototype;
+    express.response.__proto__ = http2.ServerResponse.prototype;
     app.use(compress());
 
     app.use('/', router);
@@ -35,7 +36,7 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
         key: fs.readFileSync(tlsOptions.key),
         cert: fs.readFileSync(tlsOptions.cert),
     };
-    const server = spdy.createServer(options, app);
+    const server = http2.createServer(options,app);
     server.listen(PORT, HOST, () => {
         console.info(`App listening on ${HOST}:${PORT}`);
     });
