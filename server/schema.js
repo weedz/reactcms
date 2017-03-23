@@ -150,7 +150,6 @@ const RootType = new GraphQLObjectType({
     fields:() => ({
         root: {
             type: RootType,
-            resolve: () => ({})
         },
         article: {
             type: ArticleType,

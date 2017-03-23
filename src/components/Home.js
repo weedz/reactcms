@@ -5,7 +5,6 @@ import './Home.css';
 
 import { validateToken } from '../actions/userActions';
 
-import wrapper from '../wrapper/RelayReduxWrapper';
 
 class Home extends React.Component {
     constructor() {
@@ -26,21 +25,19 @@ class Home extends React.Component {
                 authorized: json.errors ? 'Not authorized' : 'Authorized'
             });
         });*/
-        this.props.validateToken(localStorage.getItem('jwtToken'));
+        //this.props.validateToken(localStorage.getItem('jwtToken'));
     }
     render() {
         return(
             <div className="component">
                 <div className="widgets right">
-                    <WidgetNews/>
+                    {<WidgetNews articles={this.props.root.edges[0].node.articles} />}
                 </div>
                 <div className="content">
                     <ul>{
-                        this.props.users.edges.map(({node}) => (<li key={node.__dataID__}>{node.username}</li>))
+                        this.props.root && this.props.root.edges.map(({node}) => (<li key={node.__dataID__}>{console.log(node)}{node.username}</li>))
                     }</ul>
                     <p>Hello?</p>
-                    <input type="button" value="Authorized?" onClick={this.checkAuthorized.bind(this)}/>
-                    <p>{this.state.authorized || this.props.user.user ? 'Authorized' : ''}</p>
                 </div>
                 <div className="clear" />
             </div>
@@ -48,23 +45,36 @@ class Home extends React.Component {
     }
 }
 
-export default wrapper(Home, {
-        key: 'users',
-        fragment: Relay.QL`
-            fragment on UsersConnection {
+const RelayComponent = Relay.createContainer(Home, {
+        fragments: {
+            root: () => Relay.QL`
+                fragment on UsersConnection {
                     edges {
                         node {
-                            username
-                            _id
+                            username,
+                            articles(first:2){
+                                ${WidgetNews.getFragment('articles')}
+                            }
                         }
                     }
-            }
-        `
-    },
-    (state) => ({
-        user: state.user
-    }),
-    {
-        validateToken
+                    
+                }
+            `
+        }
     }
 );
+
+class RelayRoute extends Relay.Route {
+    static queries = {
+        root: () => Relay.QL`query { users }`,
+    };
+    static routeName = 'RelayRoute';
+}
+
+export default () => <Relay.RootContainer
+    Component={RelayComponent}
+    route={new RelayRoute()}
+    renderFetched={data => (<RelayComponent {...data}/>)}
+/>
+
+

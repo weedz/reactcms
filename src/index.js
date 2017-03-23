@@ -16,7 +16,7 @@ if (localStorage.getItem('jwtToken')) {
 
 ReactDOM.render(
     <Provider store={store}>
-        <Routes />
+        <Routes/>
     </Provider>,
     document.getElementById('root')
 );

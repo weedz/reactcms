@@ -1,4 +1,5 @@
 import React from 'react';
+import Relay from 'react-relay';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import AppContainer from '../components/AppContainer';
@@ -13,10 +14,11 @@ function LoadingComponent({error}) {
     }
 }
 
-const Home = Loadable({
+/*const Home = Loadable({
     loader: () => import('../components/Home'),
     LoadingComponent
-});
+});*/
+import Home from '../components/Home';
 const News = Loadable({
     loader: () => import('./News'),
     LoadingComponent
@@ -40,5 +42,15 @@ const Routes = () => (
         </AppContainer>
     </Router>
 );
-
 export default Routes;
+
+/*Relay.createContainer(Routes, {
+        fragments: {
+            root: () => Relay.QL`
+                fragment on UsersConnection {
+                    ${Home.getFragment('root')}
+                }
+            `
+        }
+    }
+);*/

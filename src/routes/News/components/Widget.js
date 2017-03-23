@@ -5,28 +5,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchNewsGraphQL } from '../../../actions/newsActions';
 
+import Relay from 'react-relay';
+
 class Widget extends React.Component {
 
-    constructor() {
-        super();
-    }
     componentWillMount() {
-        this.props.fetchNewsGraphQL();
+        //this.props.fetchNewsGraphQL();
     }
     render() {
+        console.log(this.props);
         return(
-            <News articles={this.props.articles}/>
+            <News />
         );
     }
 }
 
-const defaultExport = connect((state) => ({
-    articles: state.news.articles,
-    lastFetch: state.news.lastFetch
-}), (dispatch) => (
-    bindActionCreators({
-        fetchNewsGraphQL
-    }, dispatch)
-))(Widget);
 
-export default defaultExport;
+export default Relay.createContainer(Widget, {
+        fragments: {
+            articles: () => Relay.QL`
+                fragment on userArticleConnection {
+                    ${News.getFragment('articles')}
+                }
+            `
+        }
+    }
+);
