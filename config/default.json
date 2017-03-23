@@ -13,5 +13,6 @@
   "tlsOptions": {
     "cert":"cert.perm",
     "key":"key.perm"
-  }
+  },
+  "authSecretKey":"secretkey"
 }

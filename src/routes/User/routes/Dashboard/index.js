@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import wrapper from '../../../../wrappers/ReduxWrapper';
 
-import { logout } from '../../../../actions/userActions';
+import { logout } from '../../../../actions/authActions';
 
 class Dashboard extends React.Component {
     componentWillMount() {
@@ -36,11 +35,8 @@ class Dashboard extends React.Component {
     }
 }
 
-const defaultExport = connect(state => ({
-    user: state.user
-}), dispatch => (
-    bindActionCreators({
-        logout
-    },dispatch)
-))(Dashboard);
-export default defaultExport;
+export default wrapper(Dashboard, state => ({
+    user: state.auth
+}), {
+    logout
+});

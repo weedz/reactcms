@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import Routes from './routes';
 
-import { validateToken } from './actions/userActions';
+import { validateToken } from './actions/authActions';
 
 import Store from './store';
 

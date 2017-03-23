@@ -16,10 +16,12 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
 
     app.use('/', router);
 
-    app.use('/graphql', expressGraphQL({
+    app.use('/graphql', expressGraphQL(req => ({
+        formatError: console.error,
         graphiql: true,
         schema,
-    }));
+        rootValue: req,
+    })));
 
     app.use(expressStaticGzip(staticPath, {
         enableBrotli: true,

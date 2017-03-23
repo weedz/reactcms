@@ -9,6 +9,7 @@ router.use(bodyParser.urlencoded({
 
 router.use('/news', require('./api/news'));
 router.use('/auth', require('./api/auth'));
+router.use('/users', require('./api/users'));
 
 router.get('/*',(req,res) => {
     res.send('API documentation placeholder');

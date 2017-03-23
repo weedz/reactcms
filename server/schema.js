@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const config = require('config');
+
 const {
     GraphQLInt,
     GraphQLSchema,
@@ -62,7 +65,21 @@ const QueryType = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve: resolver(model.User)
+            resolve: (req) => {
+                const auth = req.headers.authorization;
+                if (auth) {
+                    const token = auth.split(' ')[1];
+                    if (token) {
+                        const secret = config.get('authSecretKey');
+                        try {
+                            jwt.verify(token, secret);
+                            return model.User.findAll()
+                        } catch (err) {
+                            return [];
+                        }
+                    }
+                }
+            }
         }
     }
 });

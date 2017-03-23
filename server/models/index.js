@@ -34,7 +34,8 @@ sequelize.sync({
     });
     User.create({
         username: 'weedz',
-        password: 'password'
+        password: 'password',
+        accessLevel: 16
     }).then(user => {
         _.times(8, function() {
             News.create({

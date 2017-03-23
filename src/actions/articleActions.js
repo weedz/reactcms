@@ -9,6 +9,7 @@ export function fetchArticleGraphQL(id) {
         article(id:${id}) {
             id,
             title,
+            intro,
             content,
             createdAt,
             author {

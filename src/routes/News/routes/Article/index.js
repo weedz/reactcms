@@ -1,8 +1,8 @@
 import React from 'react';
 import Article from './components/Article';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import wrapper from '../../../../wrappers/ReduxWrapper';
+
 import { fetchArticleGraphQL } from '../../../../actions/articleActions';
 
 class ArticleHandler extends React.Component {
@@ -32,14 +32,10 @@ class ArticleHandler extends React.Component {
     }
 }
 
-const defaultExport = connect((state) => ({
+export default wrapper(ArticleHandler, (state) => ({
     article: state.article.article,
     lastFetch: state.article.lastFetch,
     fetching: state.article.fetching
-}), (dispatch) => (
-    bindActionCreators({
-        fetchArticleGraphQL
-    }, dispatch)
-))(ArticleHandler);
-
-export default defaultExport;
+}), {
+    fetchArticleGraphQL
+});
