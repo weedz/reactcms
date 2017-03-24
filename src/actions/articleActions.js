@@ -1,3 +1,4 @@
+import { graphqlFetch } from './helpers';
 /*export function fetchArticle(id) {
     return {
         type: "FETCH_ARTICLE",
@@ -5,7 +6,7 @@
     };
 }*/
 export function fetchArticleGraphQL(id) {
-    let query = `{
+    const query = `{
         article(id:${id}) {
             id,
             title,
@@ -18,15 +19,8 @@ export function fetchArticleGraphQL(id) {
             }
         }
     }`;
-    query = query.replace(/\s/g,'');
     return {
         type: "FETCH_ARTICLE",
-        payload: fetch('/graphql',{
-            method: 'post',
-            headers: {
-                'Content-Type':'application/graphql'
-            },
-            body: query,
-        }).then(res => res.json())
-    }
+        payload: graphqlFetch(query).then(res => res.json())
+    };
 }

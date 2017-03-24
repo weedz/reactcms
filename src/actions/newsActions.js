@@ -1,3 +1,4 @@
+import { graphqlFetch } from './helpers';
 /*export function fetchNews(page) {
     return {
         //type: 'socket/FETCH_NEWS',
@@ -14,7 +15,7 @@ export function fetchNewsCount() {
 }
 // TODO: use cursor to implement pagination
 export function fetchNewsGraphQL() {
-    let query = `{
+    const query = `{
             articles {
                 id,
                 title,
@@ -26,15 +27,8 @@ export function fetchNewsGraphQL() {
                 }
             }
         }`;
-    query = query.replace(/\s/g,'');
     return {
         type: "FETCH_NEWS",
-        payload: fetch('/graphql', {
-            method: 'post',
-            headers: {
-                'Content-Type':'application/graphql'
-            },
-            body: query
-        }).then(res => res.json())
-    }
+        payload: graphqlFetch(query).then(res => res.json())
+    };
 }

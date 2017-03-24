@@ -1,3 +1,4 @@
+import { graphqlFetch } from './helpers';
 export function getUsers() {
     const token = localStorage.getItem('jwtToken');
     return {
@@ -13,22 +14,16 @@ export function getUsers() {
 }
 export function getUsersGraphQL() {
     const token = localStorage.getItem('jwtToken');
-    let query = `{
+    const query = `{
             users {
                 id,
                 username,
             }
         }`;
-    query = query.replace(/\s/g,'');
     return {
         type: "FETCH_USER_LIST",
-        payload: fetch('/graphql', {
-            method: 'post',
-            headers: {
-                'authorization': `bearer ${token}`,
-                'Content-Type':'application/graphql',
-            },
-            body: query
+        payload: graphqlFetch(query,undefined,{
+            "authorization":`bearer ${token}`,
         }).then(res => res.json())
-    }
+    };
 }

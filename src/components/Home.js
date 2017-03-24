@@ -3,6 +3,7 @@ import WidgetNews from '../routes/News/components/Widget';
 import './Home.css';
 
 import wrapper from '../wrappers/ReduxWrapper';
+import { graphqlFetch } from '../actions/helpers';
 import { getUsers, getUsersGraphQL } from '../actions/usersActions';
 
 class Home extends React.Component {
@@ -10,9 +11,35 @@ class Home extends React.Component {
         super();
         this.state = {
             authorized: false
-        }
+        };
         this.checkAuthorized = this.checkAuthorized.bind(this);
         this.onclickGetUserList = this.onclickGetUserList.bind(this);
+    }
+
+    graphqlTest() {
+        const query = `
+            query ($userId:Int) {
+              user(id:$userId) {
+                id,
+                ...FUser,
+              }
+            }
+            
+            fragment FArticles on Article {
+              id,
+            }
+            
+            fragment FUser on User {
+              username,
+              articles {
+                ...FArticles,
+              }
+            }`;
+        graphqlFetch(query, {
+            userId: 2
+        }).then(res => res.json()).then(json => {
+            console.log(json);
+        });
     }
 
     checkAuthorized() {
@@ -40,6 +67,7 @@ class Home extends React.Component {
                 </div>
                 <div className="content">
                     <p>Hello?</p>
+                    <input type="button" value="GraphQL" onClick={this.graphqlTest.bind(this)} />
                     <div>
                         <input type="button" value="Authorized?" onClick={this.checkAuthorized}/>
                         <p>{this.state.authorized}</p>
