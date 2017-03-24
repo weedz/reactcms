@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
                 const token = jwt.sign({
                     id: user.get('id'),
                     username: user.get('username'),
-                    access: user.get('accessLevel'),
+                    accessLevel: user.get('accessLevel'),
                 }, secret);
                 return res.json({token});
             } else {

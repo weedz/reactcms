@@ -20,7 +20,7 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
         formatError: console.error,
         graphiql: true,
         schema,
-        rootValue: req,
+        rootValue: req.headers.authorization,
     })));
 
     app.use(expressStaticGzip(staticPath, {

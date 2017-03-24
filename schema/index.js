@@ -65,24 +65,31 @@ const QueryType = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve: (req) => {
-                const auth = req.headers.authorization;
-                if (auth) {
-                    const token = auth.split(' ')[1];
-                    if (token) {
-                        const secret = config.get('authSecretKey');
-                        try {
-                            jwt.verify(token, secret);
-                            return model.User.findAll()
-                        } catch (err) {
-                            return [];
-                        }
-                    }
+            resolve: (source, args, context, { rootValue }) => {
+                if(requireAuth(15, rootValue)) {
+                    return model.User.findAll()
+                } else {
+                    return null;
                 }
             }
         }
     }
 });
+
+function requireAuth(accessLevel, auth) {
+    if (auth) {
+        const token = auth.split(' ')[1];
+        if (token) {
+            const secret = config.get('authSecretKey');
+            try {
+                const decoded = jwt.verify(token, secret);
+                return decoded.accessLevel >= accessLevel;
+            } catch (err) {
+                return false;
+            }
+        }
+    }
+}
 
 const defaultExport = new GraphQLSchema({
     query: QueryType
