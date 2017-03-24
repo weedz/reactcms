@@ -5,7 +5,7 @@ const expressStaticGzip = require("express-static-gzip");
 const path = require('path');
 const compress = require('compression');
 const expressGraphQL = require('express-graphql');
-const schema = require('./../schema');
+const schema = require('../schema');
 
 const router = require('./router');
 

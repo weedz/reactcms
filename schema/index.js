@@ -10,7 +10,7 @@ const {
 } = require('graphql');
 const { resolver } = require('graphql-sequelize');
 
-const model = require('./../server/models');
+const model = require('../server/models');
 
 const ArticleType = new GraphQLObjectType({
     name: 'Article',
