@@ -37,7 +37,7 @@ const config = {
     module: {
         loaders: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
