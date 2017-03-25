@@ -7,9 +7,11 @@ import './News.css';
 
 class News extends React.Component {
     render() {
-        const articles = this.props.articles ? this.props.articles.map(({node}) => (
-            <Stub key={node.id} article={node}/>
-        )) : '';
+        const articles = this.props.articles ? this.props.articles.edges.map(
+            ({node}) => (
+                <Stub key={node.__dataID__} article={node} author={node.author}/>
+            )
+        ) : '';
         return(
             <div className="News">
                 {articles}
@@ -26,6 +28,7 @@ export default Relay.createContainer(News, {
                     edges {
                         node {
                             intro
+                            ${Stub.getFragment('article')}
                         }
                     }
                 }

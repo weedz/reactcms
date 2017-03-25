@@ -13,9 +13,8 @@ class Widget extends React.Component {
         //this.props.fetchNewsGraphQL();
     }
     render() {
-        console.log(this.props);
         return(
-            <News />
+            <News articles={this.props.articles}/>
         );
     }
 }

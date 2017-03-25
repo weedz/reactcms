@@ -12,31 +12,23 @@ class Home extends React.Component {
         this.state = {
             authorized: false
         }
+        this.showArticles = this.showArticles.bind(this);
     }
-    checkAuthorized() {
-        /*fetch('/api/auth/check', {
-            headers: {
-                'Authorization': `bearer ${localStorage.getItem('jwtToken')}`,
-            }
-        }).then(res =>
-            res.json()
-        ).then(json => {
-            this.setState({
-                authorized: json.errors ? 'Not authorized' : 'Authorized'
-            });
-        });*/
-        //this.props.validateToken(localStorage.getItem('jwtToken'));
+
+    showArticles(evt) {
+        console.log(evt.target);
     }
+
     render() {
         return(
             <div className="component">
-                <div className="widgets right">
-                    {<WidgetNews articles={this.props.root.edges[0].node.articles} />}
-                </div>
+                <WidgetNews articles={this.props.root.edges[0].node.articles} />
                 <div className="content">
-                    <ul>{
-                        this.props.root && this.props.root.edges.map(({node}) => (<li key={node.__dataID__}>{console.log(node)}{node.username}</li>))
-                    }</ul>
+                    <ul>{this.props.root && this.props.root.edges.map(
+                        ({node}) => (
+                            <li key={node.__dataID__} onClick={this.showArticles}>{node.username}</li>
+                        )
+                    )}</ul>
                     <p>Hello?</p>
                 </div>
                 <div className="clear" />

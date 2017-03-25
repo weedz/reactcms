@@ -1,7 +1,8 @@
 import React from 'react';
+import Relay from 'react-relay';
 import { Link } from 'react-router-dom';
 
-export default class Stub extends React.Component {
+class Stub extends React.Component {
     render() {
         return(
             <div className="Stub">
@@ -12,3 +13,19 @@ export default class Stub extends React.Component {
         );
     }
 }
+export default Relay.createContainer(Stub, {
+        fragments: {
+            article: () => Relay.QL`
+                fragment on news {
+                    title,
+                    intro,
+                    id
+                    author {
+                        username,
+                        id
+                    }
+                }
+            `
+        }
+    }
+);
