@@ -18,7 +18,7 @@ class Home extends React.Component {
 
     graphqlTest() {
         const query = `
-            query ($userId:Int) {
+            query ($userId:Int!) {
               user(id:$userId) {
                 id,
                 ...FUser,
@@ -32,7 +32,11 @@ class Home extends React.Component {
             fragment FUser on User {
               username,
               articles {
-                ...FArticles,
+                edges {
+                  node {
+                    ...FArticles,
+                  }
+                }
               }
             }`;
         graphqlFetch(query, {

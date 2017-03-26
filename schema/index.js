@@ -1,5 +1,5 @@
 const { verifyAuth } = require('../server/helper');
-
+const model = require('../server/models');
 const {
     GraphQLInt,
     GraphQLNonNull,
@@ -8,13 +8,10 @@ const {
     GraphQLString,
     GraphQLList
 } = require('graphql');
-const { resolver } = require('graphql-sequelize');
-
-const model = require('../server/models');
+const { resolver, relay: {sequelizeConnection} } = require('graphql-sequelize');
 
 const ArticleType = new GraphQLObjectType({
     name: 'Article',
-    description: '',
     fields: () => ({
         id: {type: GraphQLString},
         title: {type: GraphQLString},
@@ -30,20 +27,49 @@ const ArticleType = new GraphQLObjectType({
 
 const UserType = new GraphQLObjectType({
     name: 'User',
-    description: '',
     fields: () => ({
         id: {type: GraphQLInt},
         username: {type: GraphQLString},
         articles: {
-            type: new GraphQLList(ArticleType),
-            resolve: resolver(model.User.Articles)
+            type: UserArticlesConnection.connectionType,
+            args: UserArticlesConnection.connectionArgs,
+            resolve: UserArticlesConnection.resolve,
         }
     })
 });
 
+const UsersConnection = sequelizeConnection({
+    name: 'Users',
+    nodeType: UserType,
+    target: model.User,
+});
+
+const UserArticlesConnection = sequelizeConnection({
+    name: 'UserArticles',
+    nodeType: ArticleType,
+    target: model.User.Articles,
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: ({source}) => source.countNews()
+        }
+    }
+});
+
+const ArticlesConnection = sequelizeConnection({
+    name: 'Articles',
+    nodeType: ArticleType,
+    target: model.News,
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: () => model.News.count()
+        }
+    }
+});
+
 const QueryType = new GraphQLObjectType({
-    name: 'Query',
-    description: '',
+    name: 'RootQuery',
     fields: {
         article: {
             type: ArticleType,
@@ -53,13 +79,9 @@ const QueryType = new GraphQLObjectType({
             resolve: resolver(model.News)
         },
         articles: {
-            type: new GraphQLList(ArticleType),
-            args: {
-                limit: { type: GraphQLInt },
-                offset: { type: GraphQLInt },
-                order: { type: GraphQLString }
-            },
-            resolve: resolver(model.News)
+            type: ArticlesConnection.connectionType,
+            args: ArticlesConnection.connectionArgs,
+            resolve: ArticlesConnection.resolve,
         },
         user: {
             type: UserType,

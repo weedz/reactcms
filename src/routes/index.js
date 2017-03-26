@@ -31,11 +31,17 @@ const Wiki = Loadable({
     LoadingComponent
 });
 
+const Article = Loadable({
+    loader: () => import('./Article'),
+    LoadingComponent
+});
+
 const Routes = () => (
     <BrowserRouter>
         <AppContainer>
             <Route exact path="/" component={Home} />
             <Route path="/news" component={News} />
+            <Route path="/article/:articleId" component={Article} />
             <Route path="/wiki" component={Wiki} />
             <Route path="/user" component={User} />
         </AppContainer>

@@ -5,7 +5,7 @@ export default class Stub extends React.Component {
     render() {
         return(
             <div className="Stub">
-                <h2><Link to={'/news/article/' +this.props.article.id}>{this.props.article.title}</Link></h2>
+                <h2><Link to={`/article/${this.props.article.id}`}>{this.props.article.title}</Link></h2>
                 <small>
                     Author: {this.props.article.author.username} - Published:
                     <time dateTime={this.props.article.createdAt}>
