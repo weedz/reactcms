@@ -76,7 +76,7 @@ const QueryType = new GraphQLObjectType({
             },
             resolve: resolver(model.User, {
                 before: (options, args, { token }) => {
-                    if (verifyAuth(token.split(' ')[1], 15)) {
+                    if (token && verifyAuth(token.split(' ')[1], 15)) {
                         return options;
                     } else {
                         return {
