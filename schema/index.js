@@ -2,6 +2,7 @@ const { verifyAuth } = require('../server/helper');
 
 const {
     GraphQLInt,
+    GraphQLNonNull,
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLString,
@@ -63,7 +64,7 @@ const QueryType = new GraphQLObjectType({
         user: {
             type: UserType,
             args: {
-                id: {type: GraphQLInt}
+                id: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve: resolver(model.User)
         },
