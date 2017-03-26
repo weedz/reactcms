@@ -1,5 +1,5 @@
 const { verifyAuth } = require('../server/helper');
-
+const model = require('../server/models');
 const {
     GraphQLInt,
     GraphQLSchema,
@@ -8,8 +8,6 @@ const {
     GraphQLList
 } = require('graphql');
 const { resolver, relay: {sequelizeConnection} } = require('graphql-sequelize');
-
-const model = require('../server/models');
 
 const ArticleType = new GraphQLObjectType({
     name: 'Article',
@@ -32,20 +30,33 @@ const UserType = new GraphQLObjectType({
         id: {type: GraphQLInt},
         username: {type: GraphQLString},
         articles: {
-            type: new GraphQLList(ArticleType),
-            resolve: resolver(model.User.Articles)
+            type: UserArticlesConnection.connectionType,
+            args: UserArticlesConnection.connectionArgs,
+            resolve: UserArticlesConnection.resolve,
         }
     })
 });
 
-const UserArticleConnection = sequelizeConnection({
-    name: 'UserArticleConnection',
+const UsersConnection = sequelizeConnection({
+    name: 'Users',
+    nodeType: UserType,
+    target: model.User,
+});
+
+const UserArticlesConnection = sequelizeConnection({
+    name: 'UserArticles',
     nodeType: ArticleType,
     target: model.User.Articles,
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: ({source}) => source.countNews()
+        }
+    }
 });
 
 const ArticlesConnection = sequelizeConnection({
-    name: 'ArticleConnection',
+    name: 'Articles',
     nodeType: ArticleType,
     target: model.News,
     connectionFields: {
