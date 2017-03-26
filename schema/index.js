@@ -1,5 +1,4 @@
-const jwt = require('jsonwebtoken');
-const config = require('config');
+const { verifyAuth } = require('../server/helper');
 
 const {
     GraphQLInt,
@@ -54,6 +53,11 @@ const QueryType = new GraphQLObjectType({
         },
         articles: {
             type: new GraphQLList(ArticleType),
+            args: {
+                limit: { type: GraphQLInt },
+                offset: { type: GraphQLInt },
+                order: { type: GraphQLString }
+            },
             resolve: resolver(model.News)
         },
         user: {
@@ -65,31 +69,25 @@ const QueryType = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve: (source, args, context) => {
-                if(requireAuth(15, context.token)) {
-                    return model.User.findAll()
-                } else {
-                    return null;
-                }
-            }
+            args: {
+                limit: { type: GraphQLInt },
+                offset: { type: GraphQLInt },
+                order: { type: GraphQLString },
+            },
+            resolve: resolver(model.User, {
+                before: (options, args, { token }) => {
+                    if (verifyAuth(token.split(' ')[1], 15)) {
+                        return options;
+                    } else {
+                        return {
+                            limit: 0
+                        };
+                    }
+                },
+            })
         }
     }
 });
-
-function requireAuth(accessLevel, auth) {
-    if (auth) {
-        const token = auth.split(' ')[1];
-        if (token) {
-            const secret = config.get('authSecretKey');
-            try {
-                const decoded = jwt.verify(token, secret);
-                return decoded.accessLevel >= accessLevel;
-            } catch (err) {
-                return false;
-            }
-        }
-    }
-}
 
 const defaultExport = new GraphQLSchema({
     query: QueryType
