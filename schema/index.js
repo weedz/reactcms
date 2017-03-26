@@ -7,13 +7,12 @@ const {
     GraphQLString,
     GraphQLList
 } = require('graphql');
-const { resolver } = require('graphql-sequelize');
+const { resolver, relay: {sequelizeConnection} } = require('graphql-sequelize');
 
 const model = require('../server/models');
 
 const ArticleType = new GraphQLObjectType({
     name: 'Article',
-    description: '',
     fields: () => ({
         id: {type: GraphQLString},
         title: {type: GraphQLString},
@@ -29,7 +28,6 @@ const ArticleType = new GraphQLObjectType({
 
 const UserType = new GraphQLObjectType({
     name: 'User',
-    description: '',
     fields: () => ({
         id: {type: GraphQLInt},
         username: {type: GraphQLString},
@@ -40,9 +38,26 @@ const UserType = new GraphQLObjectType({
     })
 });
 
+const UserArticleConnection = sequelizeConnection({
+    name: 'UserArticleConnection',
+    nodeType: ArticleType,
+    target: model.User.Articles,
+});
+
+const ArticlesConnection = sequelizeConnection({
+    name: 'ArticleConnection',
+    nodeType: ArticleType,
+    target: model.News,
+    connectionFields: {
+        total: {
+            type: GraphQLInt,
+            resolve: () => model.News.count()
+        }
+    }
+});
+
 const QueryType = new GraphQLObjectType({
-    name: 'Query',
-    description: '',
+    name: 'RootQuery',
     fields: {
         article: {
             type: ArticleType,
@@ -52,13 +67,9 @@ const QueryType = new GraphQLObjectType({
             resolve: resolver(model.News)
         },
         articles: {
-            type: new GraphQLList(ArticleType),
-            args: {
-                limit: { type: GraphQLInt },
-                offset: { type: GraphQLInt },
-                order: { type: GraphQLString }
-            },
-            resolve: resolver(model.News)
+            type: ArticlesConnection.connectionType,
+            args: ArticlesConnection.connectionArgs,
+            resolve: ArticlesConnection.resolve,
         },
         user: {
             type: UserType,
