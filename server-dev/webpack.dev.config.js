@@ -7,12 +7,13 @@ const vendorPackages = [
     'react',
     'react-dom',
     'react-router',
+    'react-router-dom',
     'react-redux',
     'redux',
     'redux-promise-middleware',
     'redux-thunk',
-    'socket.io-client',
-    'redux-socket.io'
+    //'socket.io-client',
+    //'redux-socket.io'
 ];
 
 const config = {
@@ -30,17 +31,18 @@ const config = {
     output: {
         path: path.join(__dirname,'js'),
         publicPath: '/js/',
-        filename: '[name].js'
+        filename: '[name].js',
+        chunkFilename: '[name].js',
     },
     module: {
         loaders: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: ['es2015','react','stage-0'],
+                    presets: ['react','stage-0'],
                 }
             },
             {

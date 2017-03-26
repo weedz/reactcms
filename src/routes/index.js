@@ -1,25 +1,44 @@
-const rootRoute = {
-    path: '/',
-    component: require('../components/AppContainer'),
-    getIndexRoute(location,cb) {
-        require.ensure([], require => {
-            cb(null, {
-                component: require('../components/Home')
-            })
-        })
-    },
-    getChildRoutes(location, cb) {
-        require.ensure([], require => {
-            cb(null, [
-                require('./News'),
-                require('./Wiki'),
-                require('./User'),
-                {
-                    path: '*',
-                    component: require('../components/NotFound')
-                }
-            ])
-        })
-    },
-};
-export default rootRoute;
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import AppContainer from '../components/AppContainer';
+
+import Loadable from 'react-loadable';
+
+function LoadingComponent({error}) {
+    if (error) {
+        return <p>Error</p>
+    } else {
+        return <p>Loading...</p>
+    }
+}
+
+const Home = Loadable({
+    loader: () => import('../components/Home'),
+    LoadingComponent
+});
+const News = Loadable({
+    loader: () => import('./News'),
+    LoadingComponent
+});
+const User = Loadable({
+    loader: () => import('./User'),
+    LoadingComponent
+});
+const Wiki = Loadable({
+    loader: () => import('./Wiki'),
+    LoadingComponent
+});
+
+const Routes = () => (
+    <Router>
+        <AppContainer>
+            <Route exact path="/" component={Home} />
+            <Route path="/news" component={News} />
+            <Route path="/wiki" component={Wiki} />
+            <Route path="/user" component={User} />
+        </AppContainer>
+    </Router>
+);
+
+export default Routes;

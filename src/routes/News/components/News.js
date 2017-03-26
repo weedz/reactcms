@@ -15,5 +15,3 @@ export default class News extends React.Component {
         );
     }
 }
-
-module.exports = News;

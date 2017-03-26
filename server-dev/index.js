@@ -1,25 +1,6 @@
 'use strict';
 
-const PORT = process.env.PORT || 9000;
-
-const path = require('path');
-const http = require('http');
 const express = require('express');
-
-const socket = require('../server/websocket');
-
+const path = require('path');
 const app = express();
-
-app.use(function(req, res, next) {
-    require('../server/router')(req, res, next);
-});
-app.use(express.static(path.join(__dirname)));
-app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'index.html'));
-});
-
-const server = http.createServer(app);
-server.listen(PORT, 'localhost', () => {
-    console.info('App listening on localhost:' + PORT);
-});
-socket(server);
+require('../server/setup')(app, express, 'localhost', 9000, path.resolve(__dirname));

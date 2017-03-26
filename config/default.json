@@ -4,12 +4,15 @@
     "password": "",
     "dbName": "reactcms",
     "params":{
-      "host": "localhost",
-      "port": 3306,
       "logging": false,
       "dialect": "sqlite",
       "storage":"db.sqlite",
       "dialectOptions":{}
     }
-  }
+  },
+  "tlsOptions": {
+    "cert":"cert.perm",
+    "key":"key.perm"
+  },
+  "authSecretKey":"secretkey"
 }

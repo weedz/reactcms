@@ -7,31 +7,29 @@ module.exports = function(sequelize, DataTypes, User) {
             field: 'id',
         },
         title: {
-            type: DataTypes.TEXT('tiny'),
+            type: DataTypes.TEXT,
             field: 'title'
         },
         intro: {
-            type: DataTypes.TEXT('medium'),
+            type: DataTypes.TEXT,
             field: 'intro'
         },
         content: {
-            type: DataTypes.TEXT('long'),
+            type: DataTypes.TEXT,
             field: 'content'
         },
     }, {
         scopes: {
             archive: {
-                attributes: ['id','title','intro','authorId','createdAt'],
+                attributes: ['id','title','intro','userId','createdAt'],
                 include: [{
                     model: User,
-                    as: 'author',
                     attributes: ['username']
                 }]
             },
             article: {
                 include: [{
                     model: User,
-                    as: 'author',
                     attributes: ['username']
                 }]
             },
@@ -42,5 +40,5 @@ module.exports = function(sequelize, DataTypes, User) {
                 }
             }
         }
-    });
+    })
 };

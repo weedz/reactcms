@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-//const CompressionPlugin = require("compression-webpack-plugin");
+const CompressionPlugin = require("brotli-webpack-plugin");
 const path = require('path');
 
 const BUILD_DIR = path.join(__dirname, '/build');
@@ -21,12 +21,13 @@ const vendorPackages = [
     'react',
     'react-dom',
     'react-router',
+    'react-router-dom',
     'react-redux',
     'redux',
     'redux-promise-middleware',
     'redux-thunk',
-    'socket.io-client',
-    'redux-socket.io'
+    //'socket.io-client',
+    //'redux-socket.io'
 ];
 
 const server = {
@@ -50,15 +51,11 @@ const server = {
                 loader: 'babel-loader',
                 query: {
                     babelrc: false,
-                    presets: ['es2015'],
+                    presets: ['stage-0'],
                 }
             }
         ]
     },
-    plugins: [
-        // Minify the code.
-        new webpack.optimize.UglifyJsPlugin(),
-    ]
 };
 const client = {
     name: 'client',
@@ -72,7 +69,8 @@ const client = {
     output: {
         path: path.join(BUILD_DIR,'public'),
         publicPath: '/',
-        filename: 'static/js/[name].[chunkhash:8].js'
+        filename: 'static/js/[name].js',
+        chunkFilename: 'static/js/[name].[chunkhash:8].js'
     },
     module: {
         loaders: [
@@ -82,7 +80,7 @@ const client = {
                 exclude: /node_modules/,
                 query: {
                     babelrc: false,
-                    presets: ['es2015','react','stage-0'],
+                    presets: ['react','stage-0'],
                 }
             },
             {
@@ -143,10 +141,10 @@ const client = {
                 screw_ie8: true
             }
         }),
-        /*new CompressionPlugin({
-            test: /.\.css$|\.html$|\.jsx?$/,
-            minRatio: 0.8
-        }),*/
+        new CompressionPlugin({
+            test: /\.(css|html|jsx?)$/,
+            minRatio: 0.8,
+        }),
     ]
 };
 
