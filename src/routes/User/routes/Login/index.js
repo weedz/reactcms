@@ -19,6 +19,8 @@ class Login extends React.Component {
         this.props.authorizeUser({
             username: e.target['username'].value,
             password: e.target['password'].value,
+        }).then(res => {
+            // Logged in
         }).catch(err => {
             // Not authorized
             this.setState({
@@ -27,33 +29,30 @@ class Login extends React.Component {
             })
         });
     }
-    render() {
-        let loggedIn = this.props.user ? <p>You are logged in.</p> : '';
 
+    renderLoginForm() {
         const { errors, isLoading } = this.state;
-
         return(
             <div className="component">
                 {errors.form && <div>{errors.form}</div>}
                 <form method="post" onSubmit={this.submit.bind(this)} action="/api/auth">
                     <div>
-                        <label htmlFor="login-username">Username:</label>
+                        <label htmlFor="login-username">Username:</label><br />
                         <input type="text" name="username" id="login-username" />
                     </div>
                     <div>
-                        <label htmlFor="login-password">Password:</label>
+                        <label htmlFor="login-password">Password:</label><br />
                         <input type="password" name="password" id="login-password" />
-                    </div>
-                    <div>
-                        <label htmlFor="login-remember">Remember me:</label>
-                        <input type="checkbox" name="remember" id="login-remember" />
                     </div>
                     <input type="submit" value="Login" disabled={isLoading || this.props.user}/>
                 </form>
-                {loggedIn}
             </div>
         );
     }
+
+    render = () => (
+        this.props.user ? <p>You are logged in.</p> : this.renderLoginForm()
+    );
 }
 
 export default ReduxWrapper(Login, state => ({

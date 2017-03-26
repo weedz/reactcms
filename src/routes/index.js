@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import AppContainer from '../components/AppContainer';
 
@@ -7,6 +7,7 @@ import Loadable from 'react-loadable';
 
 function LoadingComponent({error}) {
     if (error) {
+        console.log(error);
         return <p>Error</p>
     } else {
         return <p>Loading...</p>
@@ -31,14 +32,14 @@ const Wiki = Loadable({
 });
 
 const Routes = () => (
-    <Router>
+    <BrowserRouter>
         <AppContainer>
             <Route exact path="/" component={Home} />
             <Route path="/news" component={News} />
             <Route path="/wiki" component={Wiki} />
             <Route path="/user" component={User} />
         </AppContainer>
-    </Router>
+    </BrowserRouter>
 );
 
 export default Routes;

@@ -9,8 +9,8 @@ class Header extends Component {
     render() {
         const userItems = [];
         if (this.props.user.user) {
-            userItems.push(<Link key="dashboard" to="/user/dashboard/">Dashboard</Link>);
-            userItems.push(<Link key="logout" to="/user/dashboard/logout">Logout</Link>);
+            userItems.push(<Link key="dashboard" to="/user/dashboard">Dashboard</Link>);
+            userItems.push(<Link key="logout" to="/user/logout">Logout</Link>);
         } else {
             userItems.push(<Link key="login" to="/user/login"><li>Login</li></Link>);
             userItems.push(<Link key="register" to="/user/register"><li>Register</li></Link>);
