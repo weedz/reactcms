@@ -1,5 +1,5 @@
 import React from 'react';
-import wrapper from '../../../../wrappers/ReduxWrapper';
+import {ReduxWrapper} from '../../../../wrappers';
 
 import { logout } from '../../../../actions/authActions';
 
@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
     }
 }
 
-export default wrapper(Dashboard, state => ({
+export default ReduxWrapper(Dashboard, state => ({
     user: state.auth
 }), {
     logout

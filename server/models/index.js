@@ -20,7 +20,8 @@ sequelize.sync({
     _.times(5, function() {
         User.create({
             username: faker.name.firstName(),
-            password: faker.lorem.words(1)
+            password: faker.lorem.words(1),
+            email: faker.internet.email(),
         }).then(user => {
             _.times(3, function() {
                 News.create({
@@ -35,6 +36,7 @@ sequelize.sync({
     User.create({
         username: 'weedz',
         password: 'password',
+        email: 'weedz@localhost.local',
         accessLevel: 16
     }).then(user => {
         _.times(8, function() {

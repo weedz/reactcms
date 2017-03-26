@@ -2,7 +2,7 @@ import React from 'react';
 import WidgetNews from '../routes/News/components/Widget';
 import './Home.css';
 
-import wrapper from '../wrappers/ReduxWrapper';
+import {ReduxWrapper} from '../wrappers';
 import { graphqlFetch } from '../actions/helpers';
 import { getUsers, getUsersGraphQL } from '../actions/usersActions';
 
@@ -51,7 +51,7 @@ class Home extends React.Component {
             res.json()
         ).then(json => {
             this.setState({
-                authorized: json.errors ? 'Not authorized' : 'Authorized'
+                authorized: json.errors || 'Authorized'
             });
         });
     }
@@ -83,7 +83,7 @@ class Home extends React.Component {
         );
     }
 }
-export default wrapper(Home,(state) => ({
+export default ReduxWrapper(Home,(state) => ({
     users: state.users
 }), {
     getUsers,getUsersGraphQL

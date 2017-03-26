@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import wrapper from '../wrappers/ReduxWrapper';
+import {ReduxWrapper} from '../wrappers';
 
 import './Header.css';
 
@@ -47,6 +47,6 @@ class Header extends Component {
     }
 }
 
-export default wrapper(Header, (state) => ({
+export default ReduxWrapper(Header, (state) => ({
     user: state.auth
 }));

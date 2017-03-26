@@ -1,5 +1,5 @@
 import React from 'react';
-import wrapper from '../../../../wrappers/ReduxWrapper';
+import { ReduxWrapper } from '../../../../wrappers';
 import { authorizeUser } from '../../../../actions/authActions';
 
 class Login extends React.Component {
@@ -36,12 +36,18 @@ class Login extends React.Component {
             <div className="component">
                 {errors.form && <div>{errors.form}</div>}
                 <form method="post" onSubmit={this.submit.bind(this)} action="/api/auth">
-                    <label htmlFor="login-username">Username:</label>
-                    <input type="text" name="username" id="login-username" />
-                    <label htmlFor="login-password">Password:</label>
-                    <input type="password" name="password" id="login-password" />
-                    <label htmlFor="login-remember">Remember me:</label>
-                    <input type="checkbox" name="remember" id="login-remember" />
+                    <div>
+                        <label htmlFor="login-username">Username:</label>
+                        <input type="text" name="username" id="login-username" />
+                    </div>
+                    <div>
+                        <label htmlFor="login-password">Password:</label>
+                        <input type="password" name="password" id="login-password" />
+                    </div>
+                    <div>
+                        <label htmlFor="login-remember">Remember me:</label>
+                        <input type="checkbox" name="remember" id="login-remember" />
+                    </div>
                     <input type="submit" value="Login" disabled={isLoading || this.props.user}/>
                 </form>
                 {loggedIn}
@@ -50,7 +56,7 @@ class Login extends React.Component {
     }
 }
 
-export default wrapper(Login, state => ({
+export default ReduxWrapper(Login, state => ({
     user: state.auth.user,
 }), {
     authorizeUser
