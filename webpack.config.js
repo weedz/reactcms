@@ -26,8 +26,8 @@ const vendorPackages = [
     'redux',
     'redux-promise-middleware',
     'redux-thunk',
-    'socket.io-client',
-    'redux-socket.io'
+    //'socket.io-client',
+    //'redux-socket.io'
 ];
 
 const server = {

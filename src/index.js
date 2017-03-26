@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import Routes from './routes';
@@ -9,13 +9,12 @@ import { validateToken } from './actions/authActions';
 import Store from './store';
 
 // Authorize user
-const store = Store();
 if (localStorage.getItem('jwtToken')) {
-    store.dispatch(validateToken(localStorage.getItem('jwtToken')));
+    Store.dispatch(validateToken(localStorage.getItem('jwtToken')));
 }
 
-ReactDOM.render(
-    <Provider store={store}>
+render(
+    <Provider store={Store}>
         <Routes />
     </Provider>,
     document.getElementById('root')

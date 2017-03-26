@@ -20,7 +20,9 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
         formatError: console.error,
         graphiql: true,
         schema,
-        rootValue: req.headers.authorization,
+        context: {
+            token: req.headers.authorization
+        },
     })));
 
     app.use(expressStaticGzip(staticPath, {
@@ -41,5 +43,5 @@ module.exports = function(app, express, HOST, PORT, staticPath) {
     server.listen(PORT, HOST, () => {
         console.info(`App listening on ${HOST}:${PORT}`);
     });
-    require('./websocket')(server);
+    //require('./websocket')(server);
 };

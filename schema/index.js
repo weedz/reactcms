@@ -65,8 +65,8 @@ const QueryType = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve: (source, args, context, { rootValue }) => {
-                if(requireAuth(15, rootValue)) {
+            resolve: (source, args, context) => {
+                if(requireAuth(15, context.token)) {
                     return model.User.findAll()
                 } else {
                     return null;
