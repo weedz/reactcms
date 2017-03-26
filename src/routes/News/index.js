@@ -1,13 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-
+import { Route, Link } from 'react-router-dom';
+import {ReduxWrapper} from '../../wrappers';
 import Archive from './routes/Archive';
-import Article from './routes/Article';
 
 /*
  TODO: client side cache to prevent refetch of already fetched data
  */
-export default class Handler extends React.Component {
+class Handler extends React.Component {
 
     constructor(props) {
         super();
@@ -19,10 +18,14 @@ export default class Handler extends React.Component {
     render() {
         return(
             <div className="component">
-                <Route exact path={`${this.props.match.url}`} component={Archive} />
-                <Route path={`${this.props.match.url}/archive/:page`} component={Archive} />
-                <Route path={`${this.props.match.url}/article/:articleId`} component={Article} />
+                <Route path={`${this.props.match.url}/:cursor?`} component={Archive} />
+                {this.props.pageInfo.hasNextPage
+                    ? <Link to={`${this.props.match.url}/${this.props.pageInfo.endCursor || ''}`}>Next page</Link>
+                    : ''}
             </div>
         );
     }
 }
+export default ReduxWrapper(Handler, (state) => ({
+    pageInfo: state.news.pageInfo,
+}));

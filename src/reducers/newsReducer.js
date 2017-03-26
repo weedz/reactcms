@@ -1,15 +1,10 @@
 export default function reducer(state={
     articles: [],
-    numberOfArticles: 0,
+    pageInfo: false,
     fetching: false,
     lastFetch: 0
 }, action) {
     switch (action.type) {
-        case "socket/FETCH_NEWS" : {
-            return {...state,
-                fetching: true
-            }
-        }
         case "FETCH_NEWS_REJECTED": {
             return {...state,
                 fetching: false,
@@ -20,13 +15,8 @@ export default function reducer(state={
             return {...state,
                 fetching: false,
                 lastFetch: Date.now(),
-                articles: data.articles,
-                numberOfArticles: data.articles.length
-            }
-        }
-        case "FETCH_NEWS_COUNT_FULFILLED": {
-            return {...state,
-                numberOfArticles: action.payload.articles
+                articles: data.articles.edges,
+                pageInfo: data.articles.pageInfo,
             }
         }
     }

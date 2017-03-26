@@ -1,9 +1,9 @@
 import React from 'react';
 import Article from './components/Article';
 
-import {ReduxWrapper} from '../../../../wrappers';
+import {ReduxWrapper} from '../../wrappers';
 
-import { fetchArticleGraphQL } from '../../../../actions/articleActions';
+import { fetchArticleGraphQL } from '../../actions/articleActions';
 
 class ArticleHandler extends React.Component {
 
@@ -25,7 +25,7 @@ class ArticleHandler extends React.Component {
             content = <p>Article not found.</p>
         }
         return(
-            <div>
+            <div className="component">
                 {content}
             </div>
         );
