@@ -2,6 +2,7 @@ const { verifyAuth } = require('../server/helper');
 const model = require('../server/models');
 const {
     GraphQLInt,
+    GraphQLNonNull,
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLString,
@@ -85,7 +86,7 @@ const QueryType = new GraphQLObjectType({
         user: {
             type: UserType,
             args: {
-                id: {type: GraphQLInt}
+                id: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve: resolver(model.User)
         },
@@ -98,7 +99,7 @@ const QueryType = new GraphQLObjectType({
             },
             resolve: resolver(model.User, {
                 before: (options, args, { token }) => {
-                    if (verifyAuth(token.split(' ')[1], 15)) {
+                    if (token && verifyAuth(token.split(' ')[1], 15)) {
                         return options;
                     } else {
                         return {

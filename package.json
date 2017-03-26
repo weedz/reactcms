@@ -51,7 +51,7 @@
     "sqlite3": "^3.1.8"
   },
   "scripts": {
-    "dev-server": "nodemon --watch server server-dev/index.js",
+    "dev-server": "nodemon --watch server --watch schema server-dev/index.js",
     "dev-webpack": "webpack --config server-dev/webpack.dev.config.js --watch",
     "start": "node build/server.js",
     "build": "webpack",
