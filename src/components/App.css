@@ -27,3 +27,9 @@ body, html {
 .left {
     float: left;
 }
+input[type=button],input[type=submit] {
+    padding: 3px;
+    border: 1px solid #b4b4b4;
+    background-color: #323232;
+    color: #b4b4b4;
+}

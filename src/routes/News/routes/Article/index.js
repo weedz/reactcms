@@ -1,7 +1,7 @@
 import React from 'react';
 import Article from './components/Article';
 
-import wrapper from '../../../../wrappers/ReduxWrapper';
+import {ReduxWrapper} from '../../../../wrappers';
 
 import { fetchArticleGraphQL } from '../../../../actions/articleActions';
 
@@ -32,7 +32,7 @@ class ArticleHandler extends React.Component {
     }
 }
 
-export default wrapper(ArticleHandler, (state) => ({
+export default ReduxWrapper(ArticleHandler, (state) => ({
     article: state.article.article,
     lastFetch: state.article.lastFetch,
     fetching: state.article.fetching

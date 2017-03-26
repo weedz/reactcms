@@ -36,7 +36,7 @@ sequelize.sync({
     User.create({
         username: 'weedz',
         password: 'password',
-        email: 'weedz@localhost',
+        email: 'weedz@localhost.local',
         accessLevel: 16
     }).then(user => {
         _.times(8, function() {

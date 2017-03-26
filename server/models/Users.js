@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             set: function(val) {
                 this.setDataValue('email', val.toLowerCase());
             }

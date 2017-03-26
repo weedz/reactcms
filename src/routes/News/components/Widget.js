@@ -1,7 +1,7 @@
 import React from 'react';
 import News from './News';
 
-import wrapper from '../../../wrappers/ReduxWrapper';
+import {ReduxWrapper} from '../../../wrappers';
 import { fetchNewsGraphQL } from '../../../actions/newsActions';
 
 class Widget extends React.Component {
@@ -19,7 +19,7 @@ class Widget extends React.Component {
     }
 }
 
-export default wrapper(Widget, (state) => ({
+export default ReduxWrapper(Widget, (state) => ({
     articles: state.news.articles,
     lastFetch: state.news.lastFetch
 }), {

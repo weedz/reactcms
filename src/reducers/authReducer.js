@@ -1,5 +1,6 @@
 export default function reducer(state={
     user: false,
+    status: false,
     fetching: false,
     fetched: false,
     error: null
@@ -8,7 +9,8 @@ export default function reducer(state={
         case "AUTHORIZE_USER_PENDING": {
             return {...state,
                 fetching: true,
-                fetched: false
+                fetched: false,
+                status: false,
             }
         }
         case "AUTHORIZE_USER_REJECTED": {
@@ -21,6 +23,7 @@ export default function reducer(state={
             return {...state,
                 fetching: false,
                 fetched: true,
+                status: false,
                 user: action.payload,
             }
         }
@@ -32,17 +35,20 @@ export default function reducer(state={
         case "NEW_USER_PENDING": {
             return {...state,
                 fetching: true,
+                error: null,
+                status: 'Pending...'
             }
         }
         case "NEW_USER_FULFILLED": {
             const newState = {
                 error: null,
                 user: false,
+                status: false,
             };
             if (action.payload.error)
                 newState.error = action.payload.error;
             else
-                newState.user = action.payload;
+                newState.status = action.payload.message;
             return {...state,
                 fetching: false,
                 fetched: true,
